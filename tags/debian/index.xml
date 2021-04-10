@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Debian on Hello</title><link>https://reggieteng.github.io/tags/debian/</link><description>Recent content in Debian on Hello</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Thu, 11 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://reggieteng.github.io/tags/debian/index.xml" rel="self" type="application/rss+xml"/><item><title>Debian添加work用户</title><link>https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/</link><pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate><guid>https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/</guid><description>一般在开发中很少使用root用户，可以创建work用户进行软件安装等操作。
+以root用户登陆服务器后，添加work用户 useradd -d /home/work -s /bin/bash -m work
+设置work用户的密码 passwd work
+将work用户添加至sudo组中 adduser work sudo
+注意:以上操作均在root用户下操作，若非root用户，则需要加sudo
+关于useradd命令的参数意义如下，供参考：
+-c&amp;lt;备注&amp;gt;：加上备注文字。备注文字会保存在passwd的备注栏位中；
+-d&amp;lt;登入目录&amp;gt;：指定用户登入时的启始目录； -D：变更预设值；
+-e&amp;lt;有效期限&amp;gt;：指定帐号的有效期限；
+-f&amp;lt;缓冲天数&amp;gt;：指定在密码过期后多少天即关闭该帐号；
+-g&amp;lt;群组&amp;gt;：指定用户所属的群组；
+-G&amp;lt;群组&amp;gt;：指定用户所属的附加群组；
+-m：自动建立用户的登入目录；
+-M：不要自动建立用户的登入目录；
+-n：取消建立以用户名称为名的群组；
+-r：建立系统帐号；
+-s：指定用户登入后所使用的shell；
+-u：指定用户id。</description></item></channel></rss>
