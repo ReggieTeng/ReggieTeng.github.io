@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sqlx on Hello</title><link>https://reggieteng.github.io/tags/sqlx/</link><description>Recent content in sqlx on Hello</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>&lt;a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0&lt;/a></copyright><lastBuildDate>Fri, 14 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://reggieteng.github.io/tags/sqlx/index.xml" rel="self" type="application/rss+xml"/><item><title>golang--sqlx</title><link>https://reggieteng.github.io/posts/2021/05/golang-sqlx/</link><pubDate>Fri, 14 May 2021 00:00:00 +0000</pubDate><guid>https://reggieteng.github.io/posts/2021/05/golang-sqlx/</guid><description>一、简介
+sqlx是一个操作数据库的库,它在golang标准包database/sql之上增加了很多扩展，简化数据库操作代码的书写.配合sql driver可支持mysql、postgresql.
+sqlx设计和database/sql使用方法是一样的.包含有4中主要的handle types:
+sqlx.DB - 和sql.DB相似，表示数据库. sqlx.Tx - 和sql.Tx相似，表示transacion。 sqlx.Stmt - 和sql.Stmt相似，表示prepared statement. sqlx.NamedStmt - 表示prepared statement（支持named parameters） 所有的handler types都提供了对database/sql的兼容，意味着当你调用sql.DB.Query时,可以直接替换为sqlx.DB.Query.这就使得sqlx可以很容易的加入到已有的数据库项目中.
+此外，sqlx还有两个cursor类型:
+sqlx.Rows - 和sql.Rows类似，Queryx返回. sqlx.Row - 和sql.Row类似，QueryRowx返回. 二、使用
+1.获取DB对象(sqlx.Open())
+// Open is the same as sql.Open, but returns an *sqlx.DB instead. func Open(driverName, dataSourceName string) (*DB, error) { db, err := sql.Open(driverName, dataSourceName) if err != nil { return nil, err } return &amp;amp;DB{DB: db, driverName: driverName, Mapper: mapper()}, err } sqlx.</description></item></channel></rss>
