@@ -1,0 +1,273 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=author content="map[name:Reggie]">
+<meta name=description content="最基本的路由注册
+ 下面是最基本的router注册方式,只适用于小型项目或学习demo
+package main import ( &amp;#34;net/http&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) func helloHandler(c *gin.Context) { c.JSON(http.StatusOK, gin.JSON{ &amp;#34;message&amp;#34;: &amp;#34;Hello world!&amp;#34;, }) } func main() { r := gin.Default() r.GET(&amp;#34;/hello&amp;#34;, helloHandler) if err := r.Run(); err != nil { fmt.Println(&amp;#34;launch service failed, err:%v\n&amp;#34;, err) } }  router注册拆出
+ 当项目的规模逐渐变大时,在main,go中定义router非常不合适.此时就可以考虑将router部分代码单独写出。此时文件结构为
+. ├── ... --- 其他文件 ├── main.go --- 项目入口 └── router.go --- router文件 其中router.go代码如下
+package main import ( &amp;#34;net/http&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) func helloHandler(c *gin.">
+<meta name=keywords content=",golang,go,gin">
+<meta name=robots content="noodp">
+<meta name=theme-color content>
+<link rel=canonical href=https://reggieteng.github.io/posts/2021/03/gin%E5%88%86%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%86%8Crouter/>
+<title>
+gin分模块注册router :: Hello — Hello Friends
+</title>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css rel=stylesheet type=text/css>
+<link rel=stylesheet href=https://reggieteng.github.io/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css>
+<link rel=apple-touch-icon sizes=180x180 href=https://reggieteng.github.io/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://reggieteng.github.io/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=https://reggieteng.github.io/favicon-16x16.png>
+<link rel=manifest href=https://reggieteng.github.io/site.webmanifest>
+<link rel=mask-icon href=https://reggieteng.github.io/safari-pinned-tab.svg color=#1b1c1d>
+<link rel="shortcut icon" href=https://reggieteng.github.io/favicon.ico>
+<meta name=msapplication-TileColor content="#1b1c1d">
+<meta name=theme-color content="#1b1c1d">
+<meta itemprop=name content="gin分模块注册router">
+<meta itemprop=description content="最基本的路由注册
+ 下面是最基本的router注册方式,只适用于小型项目或学习demo
+package main import ( &#34;net/http&#34; &#34;github.com/gin-gonic/gin&#34; ) func helloHandler(c *gin.Context) { c.JSON(http.StatusOK, gin.JSON{ &#34;message&#34;: &#34;Hello world!&#34;, }) } func main() { r := gin.Default() r.GET(&#34;/hello&#34;, helloHandler) if err := r.Run(); err != nil { fmt.Println(&#34;launch service failed, err:%v\n&#34;, err) } }  router注册拆出
+ 当项目的规模逐渐变大时,在main,go中定义router非常不合适.此时就可以考虑将router部分代码单独写出。此时文件结构为
+. ├── ... --- 其他文件 ├── main.go --- 项目入口 └── router.go --- router文件 其中router.go代码如下
+package main import ( &#34;net/http&#34; &#34;github.com/gin-gonic/gin&#34; ) func helloHandler(c *gin."><meta itemprop=datePublished content="2021-03-23T00:00:00+00:00">
+<meta itemprop=dateModified content="2021-03-23T00:00:00+00:00">
+<meta itemprop=wordCount content="258"><meta itemprop=image content="https://reggieteng.github.io">
+<meta itemprop=keywords content="golang,go,gin,">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://reggieteng.github.io">
+<meta name=twitter:title content="gin分模块注册router">
+<meta name=twitter:description content="最基本的路由注册
+ 下面是最基本的router注册方式,只适用于小型项目或学习demo
+package main import ( &#34;net/http&#34; &#34;github.com/gin-gonic/gin&#34; ) func helloHandler(c *gin.Context) { c.JSON(http.StatusOK, gin.JSON{ &#34;message&#34;: &#34;Hello world!&#34;, }) } func main() { r := gin.Default() r.GET(&#34;/hello&#34;, helloHandler) if err := r.Run(); err != nil { fmt.Println(&#34;launch service failed, err:%v\n&#34;, err) } }  router注册拆出
+ 当项目的规模逐渐变大时,在main,go中定义router非常不合适.此时就可以考虑将router部分代码单独写出。此时文件结构为
+. ├── ... --- 其他文件 ├── main.go --- 项目入口 └── router.go --- router文件 其中router.go代码如下
+package main import ( &#34;net/http&#34; &#34;github.com/gin-gonic/gin&#34; ) func helloHandler(c *gin.">
+<meta property="og:title" content="gin分模块注册router">
+<meta property="og:description" content="最基本的路由注册
+ 下面是最基本的router注册方式,只适用于小型项目或学习demo
+package main import ( &#34;net/http&#34; &#34;github.com/gin-gonic/gin&#34; ) func helloHandler(c *gin.Context) { c.JSON(http.StatusOK, gin.JSON{ &#34;message&#34;: &#34;Hello world!&#34;, }) } func main() { r := gin.Default() r.GET(&#34;/hello&#34;, helloHandler) if err := r.Run(); err != nil { fmt.Println(&#34;launch service failed, err:%v\n&#34;, err) } }  router注册拆出
+ 当项目的规模逐渐变大时,在main,go中定义router非常不合适.此时就可以考虑将router部分代码单独写出。此时文件结构为
+. ├── ... --- 其他文件 ├── main.go --- 项目入口 └── router.go --- router文件 其中router.go代码如下
+package main import ( &#34;net/http&#34; &#34;github.com/gin-gonic/gin&#34; ) func helloHandler(c *gin.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://reggieteng.github.io/posts/2021/03/gin%E5%88%86%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%86%8Crouter/"><meta property="og:image" content="https://reggieteng.github.io"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-03-23T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-03-23T00:00:00+00:00">
+<meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/05/sqlx-golang%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-strconv/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang/x%E5%8C%85-ssh/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-flag/">
+<meta property="article:section" content="golang">
+<meta property="article:published_time" content="2021-03-23 00:00:00 +0000 UTC">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<span class=header__inner>
+<a href=https://reggieteng.github.io/ style=text-decoration:none>
+<div class=logo>
+<span class=logo__mark>></span>
+<span class=logo__text>$ cd /home/</span>
+<span class=logo__cursor>
+</span>
+</div>
+</a>
+<span class=header__right>
+<nav class=menu>
+<ul class=menu__inner><li><a href=https://reggieteng.github.io/about/>About</a></li><li><a href=https://reggieteng.github.io/posts/>Posts</a></li>
+</ul>
+</nav>
+<span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span>
+</span>
+</span>
+</header>
+<div class=content>
+<main class=post>
+<div class=post-info>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+2 minutes
+</p>
+</div>
+<article>
+<h1 class=post-title>
+<a href=https://reggieteng.github.io/posts/2021/03/gin%E5%88%86%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%86%8Crouter/>gin分模块注册router</a>
+</h1>
+<div class=post-content>
+<blockquote>
+<p>最基本的路由注册</p>
+</blockquote>
+<p>下面是最基本的router注册方式,只适用于小型项目或学习demo</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+	<span class=s>&#34;net/http&#34;</span>
+	<span class=s>&#34;github.com/gin-gonic/gin&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>helloHandler</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>gin</span><span class=p>.</span><span class=nx>Context</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>c</span><span class=p>.</span><span class=nf>JSON</span><span class=p>(</span><span class=nx>http</span><span class=p>.</span><span class=nx>StatusOK</span><span class=p>,</span> <span class=nx>gin</span><span class=p>.</span><span class=nx>JSON</span><span class=p>{</span>
+		<span class=s>&#34;message&#34;</span><span class=p>:</span> <span class=s>&#34;Hello world!&#34;</span><span class=p>,</span>
+	<span class=p>})</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=nx>r</span> <span class=o>:=</span> <span class=nx>gin</span><span class=p>.</span><span class=nf>Default</span><span class=p>()</span>
+	<span class=nx>r</span><span class=p>.</span><span class=nf>GET</span><span class=p>(</span><span class=s>&#34;/hello&#34;</span><span class=p>,</span> <span class=nx>helloHandler</span><span class=p>)</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>r</span><span class=p>.</span><span class=nf>Run</span><span class=p>();</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;launch service failed, err:%v\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><blockquote>
+<p>router注册拆出</p>
+</blockquote>
+<p>当项目的规模逐渐变大时,在<code>main,go</code>中定义router非常不合适.此时就可以考虑将router部分代码单独写出。此时文件结构为</p>
+<pre><code>.
+├── ...   --- 其他文件
+├── main.go   --- 项目入口
+└── router.go   --- router文件
+</code></pre><p>其中<code>router.go</code>代码如下</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+	<span class=s>&#34;net/http&#34;</span>
+	<span class=s>&#34;github.com/gin-gonic/gin&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>helloHandler</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>gin</span><span class=p>.</span><span class=nx>Context</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>c</span><span class=p>.</span><span class=nf>JSON</span><span class=p>(</span><span class=nx>http</span><span class=p>.</span><span class=nx>StatusOK</span><span class=p>,</span> <span class=nx>gin</span><span class=p>.</span><span class=nx>JSON</span><span class=p>{</span>
+		<span class=s>&#34;message&#34;</span><span class=p>:</span> <span class=s>&#34;Hello world!&#34;</span><span class=p>,</span>
+	<span class=p>})</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>InitRouter</span><span class=p>()</span> <span class=o>*</span><span class=nx>gin</span><span class=p>.</span><span class=nx>Engine</span> <span class=p>{</span>
+	<span class=nx>r</span> <span class=o>:=</span> <span class=nx>gin</span><span class=p>.</span><span class=nf>Default</span><span class=p>()</span>
+	<span class=nx>r</span><span class=p>.</span><span class=nf>GET</span><span class=p>(</span><span class=s>&#34;/hello&#34;</span><span class=p>,</span> <span class=nx>helloHandler</span><span class=p>)</span>
+	<span class=k>return</span> <span class=nx>r</span>
+<span class=p>}</span>
+</code></pre></div><p>此时<code>main.go</code>中调用上面定义好的InitRouter函数：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=nx>r</span> <span class=o>:=</span> <span class=nf>InitRouter</span><span class=p>()</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>r</span><span class=p>.</span><span class=nf>Run</span><span class=p>();</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;launch service failed, err:%v\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><blockquote>
+<p>多个router文件</p>
+</blockquote>
+<p>随着业务越来越多,我们需要把不同的业务代码分模块整理,此时就需要在app内定义不同模块的router，最后再统一注册.
+我们可以定义一个app文件夹,专门做模块拆分.此时文件结构如下</p>
+<pre><code>.
+├── ...   --- 其他文件
+├── app
+│   ├── blog
+│   │   ├── handler.go   --- 逻辑处理
+│   │   └── router.go   --- blog模块的router文件
+│   └── user
+│       ├── handler.go   --- 逻辑处理
+│       └── router.go   --- user模块的router文件
+├── main.go   --- 项目入口
+└── routers
+    └── routers.go   --- 项目的router文件
+</code></pre><p>此时blog模块的<code>router.go</code>代码如下</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>Router</span><span class=p>(</span><span class=nx>e</span> <span class=o>*</span><span class=nx>gin</span><span class=p>.</span><span class=nx>Engine</span><span class=p>)</span> <span class=p>{</span>
+	<span class=c1>// 为每个模块定义路由组
+</span><span class=c1></span>	<span class=nx>blog</span> <span class=o>:=</span> <span class=nx>e</span><span class=p>.</span><span class=nf>Group</span><span class=p>(</span><span class=s>&#34;/blog&#34;</span><span class=p>)</span>
+	<span class=p>{</span>
+		<span class=nx>post</span><span class=p>.</span><span class=nf>GET</span><span class=p>(</span><span class=s>&#34;/list&#34;</span><span class=p>,</span> <span class=nx>handler</span><span class=p>.</span><span class=nx>GetPostList</span><span class=p>)</span>
+	<span class=p>}</span>
+
+<span class=p>}</span>
+</code></pre></div><p>此时user模块的<code>router.go</code>代码如下</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>Router</span><span class=p>(</span><span class=nx>e</span> <span class=o>*</span><span class=nx>gin</span><span class=p>.</span><span class=nx>Engine</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>user</span><span class=o>:=</span><span class=nx>e</span><span class=p>.</span><span class=nf>Group</span><span class=p>(</span><span class=s>&#34;/user&#34;</span><span class=p>)</span>
+	<span class=p>{</span>
+		<span class=nx>user</span><span class=p>.</span><span class=nf>GET</span><span class=p>(</span><span class=s>&#34;/list&#34;</span><span class=p>,</span> <span class=nx>handler</span><span class=p>.</span><span class=nx>GetUserList</span><span class=p>)</span>
+	<span class=p>}</span>
+
+<span class=p>}</span>
+</code></pre></div><p>此时<code>routers.go</code>文件代码如下</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// 部分已省略
+</span><span class=c1></span><span class=kd>type</span> <span class=nx>moduleRouter</span> <span class=kd>func</span><span class=p>(</span><span class=o>*</span><span class=nx>gin</span><span class=p>.</span><span class=nx>Engine</span><span class=p>)</span>
+
+<span class=kd>var</span> <span class=nx>moduleRouters</span> <span class=p>[]</span><span class=nx>moduleRouter</span>
+
+<span class=c1>// 注册app的路由配置
+</span><span class=c1></span><span class=kd>func</span> <span class=nf>include</span><span class=p>(</span><span class=nx>moduleRouter</span> <span class=o>...</span><span class=nx>moduleRouter</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>moduleRouters</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>moduleRouters</span><span class=p>,</span> <span class=nx>moduleRouter</span><span class=o>...</span><span class=p>)</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>InitRouter</span><span class=p>()</span> <span class=o>*</span><span class=nx>gin</span><span class=p>.</span><span class=nx>Engine</span> <span class=p>{</span>
+	<span class=nx>r</span> <span class=o>:=</span> <span class=nx>gin</span><span class=p>.</span><span class=nf>New</span><span class=p>()</span>
+	<span class=c1>// 加载多个模块的路由配置
+</span><span class=c1></span>	<span class=nf>include</span><span class=p>(</span>
+		<span class=nx>user</span><span class=p>.</span><span class=nx>Router</span><span class=p>,</span>
+		<span class=nx>blog</span><span class=p>.</span><span class=nx>Router</span><span class=p>,</span>
+	<span class=p>)</span>
+	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>moduleRouter</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>moduleRouters</span> <span class=p>{</span>
+		<span class=nf>moduleRouter</span><span class=p>(</span><span class=nx>r</span><span class=p>)</span>
+	<span class=p>}</span>
+	<span class=k>return</span> <span class=nx>r</span>
+<span class=p>}</span>
+</code></pre></div><p><code>main.go</code>代码如下</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=c1>// 初始化路由
+</span><span class=c1></span>	<span class=nx>r</span> <span class=o>:=</span> <span class=nx>routers</span><span class=p>.</span><span class=nf>InitRouter</span><span class=p>()</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>r</span><span class=p>.</span><span class=nf>Run</span><span class=p>();</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;launch service failed, err:%v\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><p>如此一番，就完成了分模块router的定义与注册，这样做有以下两点优点</p>
+<ol>
+<li>对项目来说,有利于项目横向发展</li>
+<li>对开发人员来说,模块专人负责,代码改动影响范围小</li>
+</ol>
+<h2 id=以上>以上</h2>
+</div>
+</article>
+<hr>
+<div class=post-info>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg>
+<span class=tag><a href=https://reggieteng.github.io/tags/golang/>golang</a></span>
+<span class=tag><a href=https://reggieteng.github.io/tags/go/>go</a></span>
+<span class=tag><a href=https://reggieteng.github.io/tags/gin/>gin</a></span>
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+<span class=tag><a href=https://reggieteng.github.io/categories/golang/>golang</a></span>
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+258 Words
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+2021-03-23
+</p>
+</div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h></span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<span class="button previous">
+<a href=https://reggieteng.github.io/posts/2021/04/golang-flag/>
+<span class=button__icon>←</span>
+<span class=button__text>golang--flag</span>
+</a>
+</span>
+<span class="button next">
+<a href=https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/>
+<span class=button__text>Debian添加work用户</span>
+<span class=button__icon>→</span>
+</a>
+</span>
+</div>
+</div>
+</main>
+</div>
+<footer class=footer>
+</footer>
+</div>
+<script type=text/javascript src=https://reggieteng.github.io/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
+</body>
+</html>

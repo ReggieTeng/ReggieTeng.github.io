@@ -1,0 +1,211 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=author content="map[name:Reggie]">
+<meta name=description content="一般在开发中很少使用root用户，可以创建work用户进行软件安装等操作。
+ 以root用户登陆服务器后，添加work用户  useradd -d /home/work -s /bin/bash -m work
+设置work用户的密码  passwd work
+将work用户添加至sudo组中  adduser work sudo
+注意:以上操作均在root用户下操作，若非root用户，则需要加sudo
+关于useradd命令的参数意义如下，供参考：
+-c&amp;lt;备注&amp;gt;：加上备注文字。备注文字会保存在passwd的备注栏位中；
+-d&amp;lt;登入目录&amp;gt;：指定用户登入时的启始目录； -D：变更预设值；
+-e&amp;lt;有效期限&amp;gt;：指定帐号的有效期限；
+-f&amp;lt;缓冲天数&amp;gt;：指定在密码过期后多少天即关闭该帐号；
+-g&amp;lt;群组&amp;gt;：指定用户所属的群组；
+-G&amp;lt;群组&amp;gt;：指定用户所属的附加群组；
+-m：自动建立用户的登入目录；
+-M：不要自动建立用户的登入目录；
+-n：取消建立以用户名称为名的群组；
+-r：建立系统帐号；
+-s：指定用户登入后所使用的shell；
+-u：指定用户id。">
+<meta name=keywords content=",Debian">
+<meta name=robots content="noodp">
+<meta name=theme-color content>
+<link rel=canonical href=https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/>
+<title>
+Debian添加work用户 :: Hello — Hello Friends
+</title>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css rel=stylesheet type=text/css>
+<link rel=stylesheet href=https://reggieteng.github.io/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css>
+<link rel=apple-touch-icon sizes=180x180 href=https://reggieteng.github.io/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://reggieteng.github.io/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=https://reggieteng.github.io/favicon-16x16.png>
+<link rel=manifest href=https://reggieteng.github.io/site.webmanifest>
+<link rel=mask-icon href=https://reggieteng.github.io/safari-pinned-tab.svg color=#1b1c1d>
+<link rel="shortcut icon" href=https://reggieteng.github.io/favicon.ico>
+<meta name=msapplication-TileColor content="#1b1c1d">
+<meta name=theme-color content="#1b1c1d">
+<meta itemprop=name content="Debian添加work用户">
+<meta itemprop=description content="一般在开发中很少使用root用户，可以创建work用户进行软件安装等操作。
+ 以root用户登陆服务器后，添加work用户  useradd -d /home/work -s /bin/bash -m work
+设置work用户的密码  passwd work
+将work用户添加至sudo组中  adduser work sudo
+注意:以上操作均在root用户下操作，若非root用户，则需要加sudo
+关于useradd命令的参数意义如下，供参考：
+-c<备注>：加上备注文字。备注文字会保存在passwd的备注栏位中；
+-d<登入目录>：指定用户登入时的启始目录； -D：变更预设值；
+-e<有效期限>：指定帐号的有效期限；
+-f<缓冲天数>：指定在密码过期后多少天即关闭该帐号；
+-g<群组>：指定用户所属的群组；
+-G<群组>：指定用户所属的附加群组；
+-m：自动建立用户的登入目录；
+-M：不要自动建立用户的登入目录；
+-n：取消建立以用户名称为名的群组；
+-r：建立系统帐号；
+-s：指定用户登入后所使用的shell；
+-u：指定用户id。"><meta itemprop=datePublished content="2021-03-11T00:00:00+00:00">
+<meta itemprop=dateModified content="2021-03-11T00:00:00+00:00">
+<meta itemprop=wordCount content="31"><meta itemprop=image content="https://reggieteng.github.io">
+<meta itemprop=keywords content="Debian,">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://reggieteng.github.io">
+<meta name=twitter:title content="Debian添加work用户">
+<meta name=twitter:description content="一般在开发中很少使用root用户，可以创建work用户进行软件安装等操作。
+ 以root用户登陆服务器后，添加work用户  useradd -d /home/work -s /bin/bash -m work
+设置work用户的密码  passwd work
+将work用户添加至sudo组中  adduser work sudo
+注意:以上操作均在root用户下操作，若非root用户，则需要加sudo
+关于useradd命令的参数意义如下，供参考：
+-c<备注>：加上备注文字。备注文字会保存在passwd的备注栏位中；
+-d<登入目录>：指定用户登入时的启始目录； -D：变更预设值；
+-e<有效期限>：指定帐号的有效期限；
+-f<缓冲天数>：指定在密码过期后多少天即关闭该帐号；
+-g<群组>：指定用户所属的群组；
+-G<群组>：指定用户所属的附加群组；
+-m：自动建立用户的登入目录；
+-M：不要自动建立用户的登入目录；
+-n：取消建立以用户名称为名的群组；
+-r：建立系统帐号；
+-s：指定用户登入后所使用的shell；
+-u：指定用户id。">
+<meta property="og:title" content="Debian添加work用户">
+<meta property="og:description" content="一般在开发中很少使用root用户，可以创建work用户进行软件安装等操作。
+ 以root用户登陆服务器后，添加work用户  useradd -d /home/work -s /bin/bash -m work
+设置work用户的密码  passwd work
+将work用户添加至sudo组中  adduser work sudo
+注意:以上操作均在root用户下操作，若非root用户，则需要加sudo
+关于useradd命令的参数意义如下，供参考：
+-c<备注>：加上备注文字。备注文字会保存在passwd的备注栏位中；
+-d<登入目录>：指定用户登入时的启始目录； -D：变更预设值；
+-e<有效期限>：指定帐号的有效期限；
+-f<缓冲天数>：指定在密码过期后多少天即关闭该帐号；
+-g<群组>：指定用户所属的群组；
+-G<群组>：指定用户所属的附加群组；
+-m：自动建立用户的登入目录；
+-M：不要自动建立用户的登入目录；
+-n：取消建立以用户名称为名的群组；
+-r：建立系统帐号；
+-s：指定用户登入后所使用的shell；
+-u：指定用户id。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/"><meta property="og:image" content="https://reggieteng.github.io"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-03-11T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-03-11T00:00:00+00:00">
+<meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/05/sqlx-golang%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-strconv/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang/x%E5%8C%85-ssh/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-flag/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/03/gin%E5%88%86%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%86%8Crouter/">
+<meta property="article:section" content="Debian">
+<meta property="article:published_time" content="2021-03-11 00:00:00 +0000 UTC">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<span class=header__inner>
+<a href=https://reggieteng.github.io/ style=text-decoration:none>
+<div class=logo>
+<span class=logo__mark>></span>
+<span class=logo__text>$ cd /home/</span>
+<span class=logo__cursor>
+</span>
+</div>
+</a>
+<span class=header__right>
+<nav class=menu>
+<ul class=menu__inner><li><a href=https://reggieteng.github.io/about/>About</a></li><li><a href=https://reggieteng.github.io/posts/>Posts</a></li>
+</ul>
+</nav>
+<span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span>
+</span>
+</span>
+</header>
+<div class=content>
+<main class=post>
+<div class=post-info>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+One minute
+</p>
+</div>
+<article>
+<h1 class=post-title>
+<a href=https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/>Debian添加work用户</a>
+</h1>
+<div class=post-content>
+<p>一般在开发中很少使用root用户，可以创建work用户进行软件安装等操作。</p>
+<ol>
+<li>以root用户登陆服务器后，添加work用户</li>
+</ol>
+<p><code>useradd -d /home/work -s /bin/bash -m work</code></p>
+<ol start=2>
+<li>设置work用户的密码</li>
+</ol>
+<p><code>passwd work</code></p>
+<ol start=3>
+<li>将work用户添加至sudo组中</li>
+</ol>
+<p><code>adduser work sudo</code></p>
+<p>注意:以上操作均在root用户下操作，若非root用户，则需要加sudo</p>
+<p>关于useradd命令的参数意义如下，供参考：</p>
+<p>-c&lt;备注>：加上备注文字。备注文字会保存在passwd的备注栏位中；</p>
+<p>-d&lt;登入目录>：指定用户登入时的启始目录； -D：变更预设值；</p>
+<p>-e&lt;有效期限>：指定帐号的有效期限；</p>
+<p>-f&lt;缓冲天数>：指定在密码过期后多少天即关闭该帐号；</p>
+<p>-g&lt;群组>：指定用户所属的群组；</p>
+<p>-G&lt;群组>：指定用户所属的附加群组；</p>
+<p>-m：自动建立用户的登入目录；</p>
+<p>-M：不要自动建立用户的登入目录；</p>
+<p>-n：取消建立以用户名称为名的群组；</p>
+<p>-r：建立系统帐号；</p>
+<p>-s：指定用户登入后所使用的shell；</p>
+<p>-u：指定用户id。</p>
+</div>
+</article>
+<hr>
+<div class=post-info>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg>
+<span class=tag><a href=https://reggieteng.github.io/tags/debian/>Debian</a></span>
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+<span class=tag><a href=https://reggieteng.github.io/categories/debian/>Debian</a></span>
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+31 Words
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+2021-03-11
+</p>
+</div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h></span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<span class="button previous">
+<a href=https://reggieteng.github.io/posts/2021/03/gin%E5%88%86%E6%A8%A1%E5%9D%97%E6%B3%A8%E5%86%8Crouter/>
+<span class=button__icon>←</span>
+<span class=button__text>gin分模块注册router</span>
+</a>
+</span>
+</div>
+</div>
+</main>
+</div>
+<footer class=footer>
+</footer>
+</div>
+<script type=text/javascript src=https://reggieteng.github.io/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
+</body>
+</html>
