@@ -6,7 +6,7 @@
 <meta name=author content="map[name:Reggie]">
 <meta name=description content="简介 flag包是golang标准包之一.它实现了命令行参数的解析.flag包使得开发命令行工具更为简单.
 基本流程 使用flag包基本流程分为三步
- 1 定义需要解析的命令行参数 2 调用flag.Parse() 3 根据后续的逻辑处理解析后的flag参数  1.定义命令行参数 // option 1 // string的注册,其中&amp;#34;l&amp;#34;为调用时的name &amp;#34;warn&amp;#34;为默认值 &amp;#34;log level&amp;#34;可理解为说明 FlagLogLevel = flag.String(&amp;#34;l&amp;#34;, &amp;#34;warn&amp;#34;, &amp;#34;log level&amp;#34;) // int的注册 FlagThreads = flag.Int(&amp;#34;t&amp;#34;, 3, &amp;#34;threads used when starting&amp;#34;) // bool的注册 FlagVersion = flag.Bool(&amp;#34;v&amp;#34;, false, &amp;#34;show version&amp;#34;) // option 2 // flag.XxxVar()，将 flag 绑定到一个变量上 var flagLogLevel string var flagThreads int var flagVersion bool flag.StringVar(&amp;amp;flagLogLevel, &amp;#34;l&amp;#34;, &amp;#34;warn&amp;#34;, &amp;#34;log level&amp;#34;) flag.IntVar(&amp;amp;flagThreads, &amp;#34;t&amp;#34;, 1234, &amp;#34;threads used when starting&amp;#34;) flag.">
+ 1 定义需要解析的命令行参数 2 调用flag.Parse() 3 根据后续的逻辑处理解析后的flag参数  1.定义命令行参数 // option 1 // string的注册,其中&amp;#34;l&amp;#34;为调用时的name &amp;#34;warn&amp;#34;为默认值 &amp;#34;log level&amp;#34;可理解为说明 var FlagLogLevel = flag.String(&amp;#34;l&amp;#34;, &amp;#34;warn&amp;#34;, &amp;#34;log level&amp;#34;) // int的注册 var FlagThreads = flag.Int(&amp;#34;t&amp;#34;, 3, &amp;#34;threads used when starting&amp;#34;) // bool的注册 var FlagVersion = flag.Bool(&amp;#34;v&amp;#34;, false, &amp;#34;show version&amp;#34;) // option 2 // flag.XxxVar()，将 flag 绑定到一个变量上 var flagLogLevel string var flagThreads int var flagVersion bool flag.StringVar(&amp;amp;flagLogLevel, &amp;#34;l&amp;#34;, &amp;#34;warn&amp;#34;, &amp;#34;log level&amp;#34;) flag.IntVar(&amp;amp;flagThreads, &amp;#34;t&amp;#34;, 1234, &amp;#34;threads used when starting&amp;#34;) flag.">
 <meta name=keywords content=",golang,go,flag">
 <meta name=robots content="noodp">
 <meta name=theme-color content>
@@ -27,20 +27,20 @@ golang--flag :: Hello — Hello Friends
 <meta itemprop=name content="golang--flag">
 <meta itemprop=description content="简介 flag包是golang标准包之一.它实现了命令行参数的解析.flag包使得开发命令行工具更为简单.
 基本流程 使用flag包基本流程分为三步
- 1 定义需要解析的命令行参数 2 调用flag.Parse() 3 根据后续的逻辑处理解析后的flag参数  1.定义命令行参数 // option 1 // string的注册,其中&#34;l&#34;为调用时的name &#34;warn&#34;为默认值 &#34;log level&#34;可理解为说明 FlagLogLevel = flag.String(&#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) // int的注册 FlagThreads = flag.Int(&#34;t&#34;, 3, &#34;threads used when starting&#34;) // bool的注册 FlagVersion = flag.Bool(&#34;v&#34;, false, &#34;show version&#34;) // option 2 // flag.XxxVar()，将 flag 绑定到一个变量上 var flagLogLevel string var flagThreads int var flagVersion bool flag.StringVar(&flagLogLevel, &#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) flag.IntVar(&flagThreads, &#34;t&#34;, 1234, &#34;threads used when starting&#34;) flag."><meta itemprop=datePublished content="2021-04-06T00:00:00+00:00">
+ 1 定义需要解析的命令行参数 2 调用flag.Parse() 3 根据后续的逻辑处理解析后的flag参数  1.定义命令行参数 // option 1 // string的注册,其中&#34;l&#34;为调用时的name &#34;warn&#34;为默认值 &#34;log level&#34;可理解为说明 var FlagLogLevel = flag.String(&#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) // int的注册 var FlagThreads = flag.Int(&#34;t&#34;, 3, &#34;threads used when starting&#34;) // bool的注册 var FlagVersion = flag.Bool(&#34;v&#34;, false, &#34;show version&#34;) // option 2 // flag.XxxVar()，将 flag 绑定到一个变量上 var flagLogLevel string var flagThreads int var flagVersion bool flag.StringVar(&flagLogLevel, &#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) flag.IntVar(&flagThreads, &#34;t&#34;, 1234, &#34;threads used when starting&#34;) flag."><meta itemprop=datePublished content="2021-04-06T00:00:00+00:00">
 <meta itemprop=dateModified content="2021-04-06T00:00:00+00:00">
-<meta itemprop=wordCount content="388"><meta itemprop=image content="https://reggieteng.github.io">
+<meta itemprop=wordCount content="391"><meta itemprop=image content="https://reggieteng.github.io">
 <meta itemprop=keywords content="golang,go,flag,">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://reggieteng.github.io">
 <meta name=twitter:title content="golang--flag">
 <meta name=twitter:description content="简介 flag包是golang标准包之一.它实现了命令行参数的解析.flag包使得开发命令行工具更为简单.
 基本流程 使用flag包基本流程分为三步
- 1 定义需要解析的命令行参数 2 调用flag.Parse() 3 根据后续的逻辑处理解析后的flag参数  1.定义命令行参数 // option 1 // string的注册,其中&#34;l&#34;为调用时的name &#34;warn&#34;为默认值 &#34;log level&#34;可理解为说明 FlagLogLevel = flag.String(&#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) // int的注册 FlagThreads = flag.Int(&#34;t&#34;, 3, &#34;threads used when starting&#34;) // bool的注册 FlagVersion = flag.Bool(&#34;v&#34;, false, &#34;show version&#34;) // option 2 // flag.XxxVar()，将 flag 绑定到一个变量上 var flagLogLevel string var flagThreads int var flagVersion bool flag.StringVar(&flagLogLevel, &#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) flag.IntVar(&flagThreads, &#34;t&#34;, 1234, &#34;threads used when starting&#34;) flag.">
+ 1 定义需要解析的命令行参数 2 调用flag.Parse() 3 根据后续的逻辑处理解析后的flag参数  1.定义命令行参数 // option 1 // string的注册,其中&#34;l&#34;为调用时的name &#34;warn&#34;为默认值 &#34;log level&#34;可理解为说明 var FlagLogLevel = flag.String(&#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) // int的注册 var FlagThreads = flag.Int(&#34;t&#34;, 3, &#34;threads used when starting&#34;) // bool的注册 var FlagVersion = flag.Bool(&#34;v&#34;, false, &#34;show version&#34;) // option 2 // flag.XxxVar()，将 flag 绑定到一个变量上 var flagLogLevel string var flagThreads int var flagVersion bool flag.StringVar(&flagLogLevel, &#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) flag.IntVar(&flagThreads, &#34;t&#34;, 1234, &#34;threads used when starting&#34;) flag.">
 <meta property="og:title" content="golang--flag">
 <meta property="og:description" content="简介 flag包是golang标准包之一.它实现了命令行参数的解析.flag包使得开发命令行工具更为简单.
 基本流程 使用flag包基本流程分为三步
- 1 定义需要解析的命令行参数 2 调用flag.Parse() 3 根据后续的逻辑处理解析后的flag参数  1.定义命令行参数 // option 1 // string的注册,其中&#34;l&#34;为调用时的name &#34;warn&#34;为默认值 &#34;log level&#34;可理解为说明 FlagLogLevel = flag.String(&#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) // int的注册 FlagThreads = flag.Int(&#34;t&#34;, 3, &#34;threads used when starting&#34;) // bool的注册 FlagVersion = flag.Bool(&#34;v&#34;, false, &#34;show version&#34;) // option 2 // flag.XxxVar()，将 flag 绑定到一个变量上 var flagLogLevel string var flagThreads int var flagVersion bool flag.StringVar(&flagLogLevel, &#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) flag.IntVar(&flagThreads, &#34;t&#34;, 1234, &#34;threads used when starting&#34;) flag.">
+ 1 定义需要解析的命令行参数 2 调用flag.Parse() 3 根据后续的逻辑处理解析后的flag参数  1.定义命令行参数 // option 1 // string的注册,其中&#34;l&#34;为调用时的name &#34;warn&#34;为默认值 &#34;log level&#34;可理解为说明 var FlagLogLevel = flag.String(&#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) // int的注册 var FlagThreads = flag.Int(&#34;t&#34;, 3, &#34;threads used when starting&#34;) // bool的注册 var FlagVersion = flag.Bool(&#34;v&#34;, false, &#34;show version&#34;) // option 2 // flag.XxxVar()，将 flag 绑定到一个变量上 var flagLogLevel string var flagThreads int var flagVersion bool flag.StringVar(&flagLogLevel, &#34;l&#34;, &#34;warn&#34;, &#34;log level&#34;) flag.IntVar(&flagThreads, &#34;t&#34;, 1234, &#34;threads used when starting&#34;) flag.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://reggieteng.github.io/posts/2021/04/golang-flag/"><meta property="og:image" content="https://reggieteng.github.io"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-04-06T00:00:00+00:00">
@@ -95,13 +95,13 @@ golang--flag :: Hello — Hello Friends
 <h4 id=1定义命令行参数>1.定义命令行参数</h4>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=c1>// option 1
 </span><span class=c1>// string的注册,其中&#34;l&#34;为调用时的name &#34;warn&#34;为默认值 &#34;log level&#34;可理解为说明
-</span><span class=c1></span><span class=nx>FlagLogLevel</span> <span class=p>=</span> <span class=nx>flag</span><span class=p>.</span><span class=nf>String</span><span class=p>(</span><span class=s>&#34;l&#34;</span><span class=p>,</span> <span class=s>&#34;warn&#34;</span><span class=p>,</span> <span class=s>&#34;log level&#34;</span><span class=p>)</span>
+</span><span class=c1></span><span class=kd>var</span> <span class=nx>FlagLogLevel</span> <span class=p>=</span> <span class=nx>flag</span><span class=p>.</span><span class=nf>String</span><span class=p>(</span><span class=s>&#34;l&#34;</span><span class=p>,</span> <span class=s>&#34;warn&#34;</span><span class=p>,</span> <span class=s>&#34;log level&#34;</span><span class=p>)</span>
 
 <span class=c1>// int的注册
-</span><span class=c1></span><span class=nx>FlagThreads</span> <span class=p>=</span> <span class=nx>flag</span><span class=p>.</span><span class=nf>Int</span><span class=p>(</span><span class=s>&#34;t&#34;</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=s>&#34;threads used when starting&#34;</span><span class=p>)</span>
+</span><span class=c1></span><span class=kd>var</span> <span class=nx>FlagThreads</span> <span class=p>=</span> <span class=nx>flag</span><span class=p>.</span><span class=nf>Int</span><span class=p>(</span><span class=s>&#34;t&#34;</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=s>&#34;threads used when starting&#34;</span><span class=p>)</span>
 
 <span class=c1>// bool的注册
-</span><span class=c1></span><span class=nx>FlagVersion</span> <span class=p>=</span> <span class=nx>flag</span><span class=p>.</span><span class=nf>Bool</span><span class=p>(</span><span class=s>&#34;v&#34;</span><span class=p>,</span> <span class=kc>false</span><span class=p>,</span> <span class=s>&#34;show version&#34;</span><span class=p>)</span>
+</span><span class=c1></span><span class=kd>var</span> <span class=nx>FlagVersion</span> <span class=p>=</span> <span class=nx>flag</span><span class=p>.</span><span class=nf>Bool</span><span class=p>(</span><span class=s>&#34;v&#34;</span><span class=p>,</span> <span class=kc>false</span><span class=p>,</span> <span class=s>&#34;show version&#34;</span><span class=p>)</span>
 
 <span class=c1>// option 2
 </span><span class=c1>// flag.XxxVar()，将 flag 绑定到一个变量上
@@ -222,7 +222,7 @@ golang--flag :: Hello — Hello Friends
 <span class=tag><a href=https://reggieteng.github.io/categories/golang/>golang</a></span>
 </p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-388 Words
+391 Words
 </p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
 2021-04-06
