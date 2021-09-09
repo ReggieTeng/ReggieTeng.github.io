@@ -113,11 +113,13 @@ golang--flag :: Hello — Hello Friends
 <span class=nx>flag</span><span class=p>.</span><span class=nf>IntVar</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>flagThreads</span><span class=p>,</span> <span class=s>&#34;t&#34;</span><span class=p>,</span> <span class=mi>1234</span><span class=p>,</span> <span class=s>&#34;threads used when starting&#34;</span><span class=p>)</span>
 <span class=nx>flag</span><span class=p>.</span><span class=nf>BoolVar</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>flagVersion</span><span class=p>,</span> <span class=s>&#34;v&#34;</span><span class=p>,</span> <span class=kc>false</span><span class=p>,</span> <span class=s>&#34;show version&#34;</span><span class=p>)</span>
 </code></pre></div><p>可通过如下面命令调用<code>./main -l="debug" -t=1 -v=true</code></p>
-<p>命令行传参数的格式任选其一
--age=x (一个 - 符号，使用等号) 推荐
--age x (一个 - 符号，使用空格)
-&ndash;age=x (两个 - 符号，使用等号)
-&ndash;age x (两个 - 符号，使用空格)</p>
+<p>命令行传参数的格式任选其一</p>
+<ul>
+<li>-age=x (一个 - 符号，使用等号) 推荐</li>
+<li>-age x (一个 - 符号，使用空格)</li>
+<li>&ndash;age=x (两个 - 符号，使用等号)</li>
+<li>&ndash;age x (两个 - 符号，使用空格)</li>
+</ul>
 <h4 id=2调用flagparse>2.调用<code>flag.Parse()</code></h4>
 <h4 id=3处理其他逻辑>3.处理其他逻辑</h4>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
