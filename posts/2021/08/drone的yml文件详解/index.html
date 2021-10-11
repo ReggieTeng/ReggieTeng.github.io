@@ -7,7 +7,7 @@
 <meta name=description content="cicd简介 CI全称为Continuous Integration，意为持续集成，是在源代码变更后自动检测、拉取、构建和进行自动化测试的过程，属于开发人员的自动化流程。该解决方案可以解决在一次开发中有太多应用分支，从而导致相互冲突的问题。其基本思路是，自动化监测代码仓库的变化并拉取最新代码、编译构建和自动化测试。CI的触发方式可分为以下三种：
  轮询：按一定的时间间隔反复询问代码仓库是否发生了变更，若发生了变更则开启CI流程 定时：定期从代码仓库拉去最新代码并进行构建与测试，不必关心是否有变更发生 推送：当代码仓库发生变更时，通过推送的方式(如webhook)通知CI进行任务，这需要CI环境被代码仓库访问到，因此需要一个外网可达地址  CD指的是持续交付(Continuous Delivery)或持续部署(Continuous Deployment)。持续交付通常是指开发人员对应用的更改会自动进行错误测试并上传到存储库（如 GitHub 或容器注册表），然后由运维团队将其部署到实时生产环境中。持续部署指的是自动将开发人员的更改从存储库发布到生产环境，它以持续交付为基础，实现了管道后续阶段的自动化。 CI/CD 既可能仅指持续集成和持续交付构成的关联环节，也可以指持续集成、持续交付和持续部署这三项构成的关联环节。
 Drone 基于Docker的 CI/CD 工具Drone所有编译、测试的流程都在Docker容器中进行。 开发者只需在项目中包含.drone.yml文件，将代码推送到git仓库，Drone就能够自动化的进行编译、测试、发布。 示例yml文件如下：
---- kind: pipeline type: docker name: default # 指定代码空间，git代码会被clone到指定的path workspace: path: /drone/src # 指定编译平台 platform: os: linux arch: amd64 clone: disable: true volumes: - name: godeps path: /go/pkg steps: - name: 测试环境代码clone # 失败退出 failure: always image: golang:1.15 commands: - git init - git fetch http://xxx.git dev - git checkout FETCH_HEAD - git rev-parse HEAD when: branch: - dev event: - push - name: 线上环境代码clone failure: always image: golang:1.">
+---kind:pipelinetype:dockername:default# 指定代码空间，git代码会被clone到指定的pathworkspace:path:/drone/src# 指定编译平台platform:os:linuxarch:amd64clone:disable:truevolumes:- name:godepspath:/go/pkgsteps:- name:测试环境代码clone# 失败退出failure:alwaysimage:golang:1.15commands:- git init- git fetch http://xxx.git dev- git checkout FETCH_HEAD- git rev-parse HEADwhen:branch:- devevent:- push- name:线上环境代码clonefailure:alwaysimage:golang:1.15commands:- git init- git fetch http://xxx.git dev --tags- git checkout FETCH_HEAD- git describe --abbrev=0- git describe --abbrev=0 &amp;gt; .tagswhen:event:- tag- name:代码静态检查# 忽略失败继续buildfailure:ignoreimage:golang:1.15pull:if-not-exists # 默认always，指定if-not-exists或never可以大幅度提高速度environment:GOPROXY:&amp;#34;https://goproxy.cn,direct&amp;#34;commands:- go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1- golangci-lint run --fast- name:编译打包image:golang:1.">
 <meta name=keywords content=",drone,cicd">
 <meta name=robots content="noodp">
 <meta name=theme-color content>
@@ -29,9 +29,9 @@ drone的yml文件详解 :: Hello — Hello Friends
 <meta itemprop=description content="cicd简介 CI全称为Continuous Integration，意为持续集成，是在源代码变更后自动检测、拉取、构建和进行自动化测试的过程，属于开发人员的自动化流程。该解决方案可以解决在一次开发中有太多应用分支，从而导致相互冲突的问题。其基本思路是，自动化监测代码仓库的变化并拉取最新代码、编译构建和自动化测试。CI的触发方式可分为以下三种：
  轮询：按一定的时间间隔反复询问代码仓库是否发生了变更，若发生了变更则开启CI流程 定时：定期从代码仓库拉去最新代码并进行构建与测试，不必关心是否有变更发生 推送：当代码仓库发生变更时，通过推送的方式(如webhook)通知CI进行任务，这需要CI环境被代码仓库访问到，因此需要一个外网可达地址  CD指的是持续交付(Continuous Delivery)或持续部署(Continuous Deployment)。持续交付通常是指开发人员对应用的更改会自动进行错误测试并上传到存储库（如 GitHub 或容器注册表），然后由运维团队将其部署到实时生产环境中。持续部署指的是自动将开发人员的更改从存储库发布到生产环境，它以持续交付为基础，实现了管道后续阶段的自动化。 CI/CD 既可能仅指持续集成和持续交付构成的关联环节，也可以指持续集成、持续交付和持续部署这三项构成的关联环节。
 Drone 基于Docker的 CI/CD 工具Drone所有编译、测试的流程都在Docker容器中进行。 开发者只需在项目中包含.drone.yml文件，将代码推送到git仓库，Drone就能够自动化的进行编译、测试、发布。 示例yml文件如下：
---- kind: pipeline type: docker name: default # 指定代码空间，git代码会被clone到指定的path workspace: path: /drone/src # 指定编译平台 platform: os: linux arch: amd64 clone: disable: true volumes: - name: godeps path: /go/pkg steps: - name: 测试环境代码clone # 失败退出 failure: always image: golang:1.15 commands: - git init - git fetch http://xxx.git dev - git checkout FETCH_HEAD - git rev-parse HEAD when: branch: - dev event: - push - name: 线上环境代码clone failure: always image: golang:1."><meta itemprop=datePublished content="2021-08-31T00:00:00+00:00">
+---kind:pipelinetype:dockername:default# 指定代码空间，git代码会被clone到指定的pathworkspace:path:/drone/src# 指定编译平台platform:os:linuxarch:amd64clone:disable:truevolumes:- name:godepspath:/go/pkgsteps:- name:测试环境代码clone# 失败退出failure:alwaysimage:golang:1.15commands:- git init- git fetch http://xxx.git dev- git checkout FETCH_HEAD- git rev-parse HEADwhen:branch:- devevent:- push- name:线上环境代码clonefailure:alwaysimage:golang:1.15commands:- git init- git fetch http://xxx.git dev --tags- git checkout FETCH_HEAD- git describe --abbrev=0- git describe --abbrev=0 > .tagswhen:event:- tag- name:代码静态检查# 忽略失败继续buildfailure:ignoreimage:golang:1.15pull:if-not-exists # 默认always，指定if-not-exists或never可以大幅度提高速度environment:GOPROXY:&#34;https://goproxy.cn,direct&#34;commands:- go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1- golangci-lint run --fast- name:编译打包image:golang:1."><meta itemprop=datePublished content="2021-08-31T00:00:00+00:00">
 <meta itemprop=dateModified content="2021-08-31T00:00:00+00:00">
-<meta itemprop=wordCount content="465"><meta itemprop=image content="https://reggieteng.github.io">
+<meta itemprop=wordCount content="339"><meta itemprop=image content="https://reggieteng.github.io">
 <meta itemprop=keywords content="drone,cicd,">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://reggieteng.github.io">
@@ -39,17 +39,17 @@ Drone 基于Docker的 CI/CD 工具Drone所有编译、测试的流程都在Docke
 <meta name=twitter:description content="cicd简介 CI全称为Continuous Integration，意为持续集成，是在源代码变更后自动检测、拉取、构建和进行自动化测试的过程，属于开发人员的自动化流程。该解决方案可以解决在一次开发中有太多应用分支，从而导致相互冲突的问题。其基本思路是，自动化监测代码仓库的变化并拉取最新代码、编译构建和自动化测试。CI的触发方式可分为以下三种：
  轮询：按一定的时间间隔反复询问代码仓库是否发生了变更，若发生了变更则开启CI流程 定时：定期从代码仓库拉去最新代码并进行构建与测试，不必关心是否有变更发生 推送：当代码仓库发生变更时，通过推送的方式(如webhook)通知CI进行任务，这需要CI环境被代码仓库访问到，因此需要一个外网可达地址  CD指的是持续交付(Continuous Delivery)或持续部署(Continuous Deployment)。持续交付通常是指开发人员对应用的更改会自动进行错误测试并上传到存储库（如 GitHub 或容器注册表），然后由运维团队将其部署到实时生产环境中。持续部署指的是自动将开发人员的更改从存储库发布到生产环境，它以持续交付为基础，实现了管道后续阶段的自动化。 CI/CD 既可能仅指持续集成和持续交付构成的关联环节，也可以指持续集成、持续交付和持续部署这三项构成的关联环节。
 Drone 基于Docker的 CI/CD 工具Drone所有编译、测试的流程都在Docker容器中进行。 开发者只需在项目中包含.drone.yml文件，将代码推送到git仓库，Drone就能够自动化的进行编译、测试、发布。 示例yml文件如下：
---- kind: pipeline type: docker name: default # 指定代码空间，git代码会被clone到指定的path workspace: path: /drone/src # 指定编译平台 platform: os: linux arch: amd64 clone: disable: true volumes: - name: godeps path: /go/pkg steps: - name: 测试环境代码clone # 失败退出 failure: always image: golang:1.15 commands: - git init - git fetch http://xxx.git dev - git checkout FETCH_HEAD - git rev-parse HEAD when: branch: - dev event: - push - name: 线上环境代码clone failure: always image: golang:1.">
+---kind:pipelinetype:dockername:default# 指定代码空间，git代码会被clone到指定的pathworkspace:path:/drone/src# 指定编译平台platform:os:linuxarch:amd64clone:disable:truevolumes:- name:godepspath:/go/pkgsteps:- name:测试环境代码clone# 失败退出failure:alwaysimage:golang:1.15commands:- git init- git fetch http://xxx.git dev- git checkout FETCH_HEAD- git rev-parse HEADwhen:branch:- devevent:- push- name:线上环境代码clonefailure:alwaysimage:golang:1.15commands:- git init- git fetch http://xxx.git dev --tags- git checkout FETCH_HEAD- git describe --abbrev=0- git describe --abbrev=0 > .tagswhen:event:- tag- name:代码静态检查# 忽略失败继续buildfailure:ignoreimage:golang:1.15pull:if-not-exists # 默认always，指定if-not-exists或never可以大幅度提高速度environment:GOPROXY:&#34;https://goproxy.cn,direct&#34;commands:- go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1- golangci-lint run --fast- name:编译打包image:golang:1.">
 <meta property="og:title" content="drone的yml文件详解">
 <meta property="og:description" content="cicd简介 CI全称为Continuous Integration，意为持续集成，是在源代码变更后自动检测、拉取、构建和进行自动化测试的过程，属于开发人员的自动化流程。该解决方案可以解决在一次开发中有太多应用分支，从而导致相互冲突的问题。其基本思路是，自动化监测代码仓库的变化并拉取最新代码、编译构建和自动化测试。CI的触发方式可分为以下三种：
  轮询：按一定的时间间隔反复询问代码仓库是否发生了变更，若发生了变更则开启CI流程 定时：定期从代码仓库拉去最新代码并进行构建与测试，不必关心是否有变更发生 推送：当代码仓库发生变更时，通过推送的方式(如webhook)通知CI进行任务，这需要CI环境被代码仓库访问到，因此需要一个外网可达地址  CD指的是持续交付(Continuous Delivery)或持续部署(Continuous Deployment)。持续交付通常是指开发人员对应用的更改会自动进行错误测试并上传到存储库（如 GitHub 或容器注册表），然后由运维团队将其部署到实时生产环境中。持续部署指的是自动将开发人员的更改从存储库发布到生产环境，它以持续交付为基础，实现了管道后续阶段的自动化。 CI/CD 既可能仅指持续集成和持续交付构成的关联环节，也可以指持续集成、持续交付和持续部署这三项构成的关联环节。
 Drone 基于Docker的 CI/CD 工具Drone所有编译、测试的流程都在Docker容器中进行。 开发者只需在项目中包含.drone.yml文件，将代码推送到git仓库，Drone就能够自动化的进行编译、测试、发布。 示例yml文件如下：
---- kind: pipeline type: docker name: default # 指定代码空间，git代码会被clone到指定的path workspace: path: /drone/src # 指定编译平台 platform: os: linux arch: amd64 clone: disable: true volumes: - name: godeps path: /go/pkg steps: - name: 测试环境代码clone # 失败退出 failure: always image: golang:1.15 commands: - git init - git fetch http://xxx.git dev - git checkout FETCH_HEAD - git rev-parse HEAD when: branch: - dev event: - push - name: 线上环境代码clone failure: always image: golang:1.">
+---kind:pipelinetype:dockername:default# 指定代码空间，git代码会被clone到指定的pathworkspace:path:/drone/src# 指定编译平台platform:os:linuxarch:amd64clone:disable:truevolumes:- name:godepspath:/go/pkgsteps:- name:测试环境代码clone# 失败退出failure:alwaysimage:golang:1.15commands:- git init- git fetch http://xxx.git dev- git checkout FETCH_HEAD- git rev-parse HEADwhen:branch:- devevent:- push- name:线上环境代码clonefailure:alwaysimage:golang:1.15commands:- git init- git fetch http://xxx.git dev --tags- git checkout FETCH_HEAD- git describe --abbrev=0- git describe --abbrev=0 > .tagswhen:event:- tag- name:代码静态检查# 忽略失败继续buildfailure:ignoreimage:golang:1.15pull:if-not-exists # 默认always，指定if-not-exists或never可以大幅度提高速度environment:GOPROXY:&#34;https://goproxy.cn,direct&#34;commands:- go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1- golangci-lint run --fast- name:编译打包image:golang:1.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://reggieteng.github.io/posts/2021/08/drone%E7%9A%84yml%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/"><meta property="og:image" content="https://reggieteng.github.io"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-08-31T00:00:00+00:00">
 <meta property="article:modified_time" content="2021-08-31T00:00:00+00:00">
-<meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/05/sqlx-golang%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-strconv/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang/x%E5%8C%85-ssh/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-flag/">
+<meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/10/etcd%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/05/sqlx-golang%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-strconv/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang/x%E5%8C%85-ssh/">
 <meta property="article:section" content="cicd">
 <meta property="article:published_time" content="2021-08-31 00:00:00 +0000 UTC">
 </head>
@@ -79,7 +79,7 @@ Drone 基于Docker的 CI/CD 工具Drone所有编译、测试的流程都在Docke
 <main class=post>
 <div class=post-info>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-3 minutes
+2 minutes
 </p>
 </div>
 <article>
@@ -100,108 +100,108 @@ CI/CD 既可能仅指持续集成和持续交付构成的关联环节，也可�
 <p>基于Docker的 CI/CD 工具Drone所有编译、测试的流程都在Docker容器中进行。
 开发者只需在项目中包含<code>.drone.yml</code>文件，将代码推送到git仓库，Drone就能够自动化的进行编译、测试、发布。
 示例yml文件如下：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>---
-kind: pipeline
-type: docker
-name: default
-
-<span class=c1># 指定代码空间，git代码会被clone到指定的path</span>
-workspace:
-  path: /drone/src
-
-<span class=c1># 指定编译平台</span>
-platform:
-  os: linux
-  arch: amd64
-
-clone:
- disable: <span class=nb>true</span>
-
-volumes:
-  - name: godeps
-    path: /go/pkg
-
-steps:
-
-  - name: 测试环境代码clone
-    <span class=c1># 失败退出</span>
-    failure: always
-    image: golang:1.15
-    commands:
-      - git init
-      - git fetch http://xxx.git dev
-      - git checkout FETCH_HEAD
-      - git rev-parse HEAD
-    when:
-      branch:
-        - dev
-      event:
-        - push
-
-  - name: 线上环境代码clone
-    failure: always
-    image: golang:1.15
-    commands:
-      - git init
-      - git fetch http://xxx.git dev --tags
-      - git checkout FETCH_HEAD
-      - git describe --abbrev<span class=o>=</span><span class=m>0</span>
-      - git describe --abbrev<span class=o>=</span><span class=m>0</span> &gt; .tags
-    when:
-      event:
-        - tag
-
-  - name: 代码静态检查
-    <span class=c1># 忽略失败继续build</span>
-    failure: ignore
-    image: golang:1.15
-    pull: <span class=k>if</span>-not-exists   <span class=c1># 默认always，指定if-not-exists或never可以大幅度提高速度</span>
-    environment:
-      GOPROXY: <span class=s2>&#34;https://goproxy.cn,direct&#34;</span>
-    commands:
-      - go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1
-      - golangci-lint run --fast
-
-  - name: 编译打包
-    image: golang:1.15
-    pull: <span class=k>if</span>-not-exists
-    failure: always
-    environment:
-      GOPROXY: <span class=s2>&#34;https://goproxy.cn,direct&#34;</span>
-
-    commands:
-      - <span class=nv>CGO_ENABLED</span><span class=o>=</span><span class=m>0</span> <span class=nv>GOOS</span><span class=o>=</span>linux <span class=nv>GOARCH</span><span class=o>=</span>amd64 go build -o xxx  -a -installsuffix cgo -ldflags <span class=s1>&#39;-s -w&#39;</span>
-
-  - name: 测试镜像发布
-    image: plugins/docker:19.03.8
-    when:
-      branch:
-        - dev
-      event:
-        - push
-    settings:
-      repo: xxx
-      use_cache: <span class=nb>true</span>
-      username:
-        from_secret: hub_username
-      password:
-        from_secret: hub_password
-      tags:
-        - latest
-
-  - name: 线上镜像发布
-    image: plugins/docker:19.03.8
-    when:
-      event:
-        - tag
-    settings:
-      repo: xxx
-      use_cache: <span class=nb>true</span>
-      username:
-        from_secret: hub_username
-      password:
-        from_secret: hub_password
-</code></pre></div><p>接下来根据<a href=https://docs.drone.io/yaml/>Drone官网</a>对docker的yml文件进行详细介绍</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=nn>---</span><span class=w>
+</span><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>pipeline</span><span class=w>
+</span><span class=w></span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>docker</span><span class=w>
+</span><span class=w></span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>default</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 指定代码空间，git代码会被clone到指定的path</span><span class=w>
+</span><span class=w></span><span class=nt>workspace</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/drone/src</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 指定编译平台</span><span class=w>
+</span><span class=w></span><span class=nt>platform</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>os</span><span class=p>:</span><span class=w> </span><span class=l>linux</span><span class=w>
+</span><span class=w>  </span><span class=nt>arch</span><span class=p>:</span><span class=w> </span><span class=l>amd64</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>clone</span><span class=p>:</span><span class=w>
+</span><span class=w> </span><span class=nt>disable</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>godeps</span><span class=w>
+</span><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/go/pkg</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>steps</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>测试环境代码clone</span><span class=w>
+</span><span class=w>    </span><span class=c># 失败退出</span><span class=w>
+</span><span class=w>    </span><span class=nt>failure</span><span class=p>:</span><span class=w> </span><span class=l>always</span><span class=w>
+</span><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>golang:1.15</span><span class=w>
+</span><span class=w>    </span><span class=nt>commands</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git init</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git fetch http://xxx.git dev</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git checkout FETCH_HEAD</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git rev-parse HEAD</span><span class=w>
+</span><span class=w>    </span><span class=nt>when</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>branch</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=l>dev</span><span class=w>
+</span><span class=w>      </span><span class=nt>event</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=l>push</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>线上环境代码clone</span><span class=w>
+</span><span class=w>    </span><span class=nt>failure</span><span class=p>:</span><span class=w> </span><span class=l>always</span><span class=w>
+</span><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>golang:1.15</span><span class=w>
+</span><span class=w>    </span><span class=nt>commands</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git init</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git fetch http://xxx.git dev --tags</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git checkout FETCH_HEAD</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git describe --abbrev=0</span><span class=w>
+</span><span class=w>      </span>- <span class=l>git describe --abbrev=0 &gt; .tags</span><span class=w>
+</span><span class=w>    </span><span class=nt>when</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>event</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=l>tag</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>代码静态检查</span><span class=w>
+</span><span class=w>    </span><span class=c># 忽略失败继续build</span><span class=w>
+</span><span class=w>    </span><span class=nt>failure</span><span class=p>:</span><span class=w> </span><span class=l>ignore</span><span class=w>
+</span><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>golang:1.15</span><span class=w>
+</span><span class=w>    </span><span class=nt>pull</span><span class=p>:</span><span class=w> </span><span class=l>if-not-exists  </span><span class=w> </span><span class=c># 默认always，指定if-not-exists或never可以大幅度提高速度</span><span class=w>
+</span><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>GOPROXY</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://goproxy.cn,direct&#34;</span><span class=w>
+</span><span class=w>    </span><span class=nt>commands</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=l>go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1</span><span class=w>
+</span><span class=w>      </span>- <span class=l>golangci-lint run --fast</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>编译打包</span><span class=w>
+</span><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>golang:1.15</span><span class=w>
+</span><span class=w>    </span><span class=nt>pull</span><span class=p>:</span><span class=w> </span><span class=l>if-not-exists</span><span class=w>
+</span><span class=w>    </span><span class=nt>failure</span><span class=p>:</span><span class=w> </span><span class=l>always</span><span class=w>
+</span><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>GOPROXY</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://goproxy.cn,direct&#34;</span><span class=w>
+</span><span class=w>
+</span><span class=w>    </span><span class=nt>commands</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=l>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o xxx  -a -installsuffix cgo -ldflags &#39;-s -w&#39;</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>测试镜像发布</span><span class=w>
+</span><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>plugins/docker:19.03.8</span><span class=w>
+</span><span class=w>    </span><span class=nt>when</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>branch</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=l>dev</span><span class=w>
+</span><span class=w>      </span><span class=nt>event</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=l>push</span><span class=w>
+</span><span class=w>    </span><span class=nt>settings</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>repo</span><span class=p>:</span><span class=w> </span><span class=l>xxx</span><span class=w>
+</span><span class=w>      </span><span class=nt>use_cache</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>      </span><span class=nt>username</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>from_secret</span><span class=p>:</span><span class=w> </span><span class=l>hub_username</span><span class=w>
+</span><span class=w>      </span><span class=nt>password</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>from_secret</span><span class=p>:</span><span class=w> </span><span class=l>hub_password</span><span class=w>
+</span><span class=w>      </span><span class=nt>tags</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=l>latest</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>线上镜像发布</span><span class=w>
+</span><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>plugins/docker:19.03.8</span><span class=w>
+</span><span class=w>    </span><span class=nt>when</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>event</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=l>tag</span><span class=w>
+</span><span class=w>    </span><span class=nt>settings</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>repo</span><span class=p>:</span><span class=w> </span><span class=l>xxx</span><span class=w>
+</span><span class=w>      </span><span class=nt>use_cache</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>      </span><span class=nt>username</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>from_secret</span><span class=p>:</span><span class=w> </span><span class=l>hub_username</span><span class=w>
+</span><span class=w>      </span><span class=nt>password</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>from_secret</span><span class=p>:</span><span class=w> </span><span class=l>hub_password</span><span class=w>
+</span></code></pre></div><p>接下来根据<a href=https://docs.drone.io/yaml/>Drone官网</a>对docker的yml文件进行详细介绍</p>
 <h3 id=pipline>pipline</h3>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># The Pipeline is the top-level object used to represent the docker pipeline</span>
 <span class=c1># Pipline是用来表达docker构建流程的第一层的配置信息</span>
@@ -288,7 +288,7 @@ class Pipeline : Resource <span class=o>{</span>
 <span class=tag><a href=https://reggieteng.github.io/categories/cicd/>cicd</a></span>
 </p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-465 Words
+339 Words
 </p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
 2021-08-31
@@ -300,6 +300,12 @@ class Pipeline : Resource <span class=o>{</span>
 <hr>
 </div>
 <div class=pagination__buttons>
+<span class="button previous">
+<a href=https://reggieteng.github.io/posts/2021/10/etcd%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>
+<span class=button__icon>←</span>
+<span class=button__text>etcd的配置文件</span>
+</a>
+</span>
 <span class="button next">
 <a href=https://reggieteng.github.io/posts/2021/08/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>
 <span class=button__text>nginx配置文件</span>

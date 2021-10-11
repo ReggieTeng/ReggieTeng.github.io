@@ -1,0 +1,277 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=author content="map[name:Reggie]">
+<meta name=description content="etcd 是一种高度一致的分布式键值存储，它提供了一种可靠的方式来存储需要由分布式系统或机器集群访问的数据. 它有以下基本的功能
+ 通过http请求读取和写入值 将数据存储在分层组织的目录中，就像在标准文件系统中一样 观察特定键或目录的变化并对值的变化做出反应  今天我们就来了解一下etcd配置文件
+# This is the configuration file for the etcd server.# 节点名称 这个值和--initial-cluster flag (e.g., default=http://localhost:2380)中的key值一一对应，如果在集群环境中，name必须是唯一的，建议用主机名称或者机器IDname:&amp;#39;default&amp;#39;# 数据的存储路径data-dir:# 存放预写式日志,最大的作用是记录了整个数据变化的全部历程。未设置，共用--data-dir文件所在目录。可以配置路径为专用磁盘，有助于避免日志记录和其他io操作之间的io竞争wal-dir:# 数据快照触发数量，etcd处理指定的次数的事务提交后，生成数据快照snapshot-count:10000# 客户端连接后的心跳间隔（毫秒）heartbeat-interval:100# 集群选举的超时时间election-timeout:1000# Raise alarms when backend size exceeds the given quota. 0 means use the# default quota.quota-backend-bytes:0# 本节点与其他节点进行数据交换(选举，数据同步)的监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2380,将不限制node访问地址listen-peer-urls:http://localhost:2380# 监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2379,将不限制node访问地址listen-client-urls:http://localhost:2379# 要保留的快照文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。max-snapshots:5# 要保留的wal文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。max-wals:5# 逗号分隔的 CORS（跨源资源共享）来源白名单cors:# 通知其他节点与本节点进行数据交换（选举，同步）的地址，URL可以使用domain地址。与--listener-peer-urls不同在于listener-peer-urls用于请求客户端的接入控制，initial-advertise-peer-urls是告知其他集群节点访问哪个URL，一般来说，initial-advertise-peer-urlsl将是istener-peer-urls的子集initial-advertise-peer-urls:http://localhost:2380# 用于通知其他ETCD节点，客户端接入本节点的监听地址，一般来说advertise-client-urls是listen-client-urls子集，这些URL可以包含域名advertise-client-urls:http://localhost:2379# 集群发现服务地址discovery:# 发现服务失败时的预期行为（“exit”或“proxy”）。“proxy”仅支持v2 APIdiscovery-fallback:&amp;#39;proxy&amp;#39;# 用于流量到发现服务的HTTP代理discovery-proxy:# 用于引导集群的DNS sry域discovery-srv:# 用于引导初始集群配置，集群中所有节点的信息。initial-cluster:# 集群唯一标识，相同标识的节点将视为在一个集群内initial-cluster-token:&amp;#39;etcd-cluster&amp;#39;# 初始集群状态，设置new为初始静态或DNS引导期间出现的所有成员。如果将此选项设置为existing，则etcd将尝试加入现有群集。initial-cluster-state:&amp;#39;new&amp;#39;# 拒绝可能导致仲裁丢失的重新配置请求strict-reconfig-check:false# 接受etcd V2客户端请求enable-v2:true# 通过HTTP服务器启用运行时分析数据。地址位于客户端URL +“/ debug / pprof /”enable-pprof:true# 代理模式设置，（&amp;#34;off&amp;#34;, &amp;#34;readonly&amp;#34; or &amp;#34;on&amp;#34;）proxy:&amp;#39;off&amp;#39;# 在重新考虑代理请求之前，endpoints 将处于失败状态的时间（以毫秒为单位）proxy-failure-wait:5000# endpoints 刷新间隔的时间（以毫秒为单位）proxy-refresh-interval:30000# 拨号超时的时间（以毫秒为单位）或0表示禁用超时proxy-dial-timeout:1000# 写入超时的时间（以毫秒为单位）或0以禁用超时proxy-write-timeout:5000# 读取超时的时间（以毫秒为单位）或0以禁用超时。如果使用watch，不要改变这个值，因为使用长轮询请求proxy-read-timeout:0client-transport-security:# 客户端服务器TLS证书文件的路径。cert-file:# 客户端服务器TLS密钥文件的路径key-file:# 启用客户端证书验证。client-cert-auth:false# 客户端服务器的路径TLS可信CA证书文件trusted-ca-file:# 客户端TLS使用生成的证书auto-tls:falsepeer-transport-security:# Path to the peer server TLS cert file.">
+<meta name=keywords content=",etcd,kubernetes">
+<meta name=robots content="noodp">
+<meta name=theme-color content>
+<link rel=canonical href=https://reggieteng.github.io/posts/2021/10/etcd%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>
+<title>
+etcd的配置文件 :: Hello — Hello Friends
+</title>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css rel=stylesheet type=text/css>
+<link rel=stylesheet href=https://reggieteng.github.io/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css>
+<link rel=apple-touch-icon sizes=180x180 href=https://reggieteng.github.io/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://reggieteng.github.io/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=https://reggieteng.github.io/favicon-16x16.png>
+<link rel=manifest href=https://reggieteng.github.io/site.webmanifest>
+<link rel=mask-icon href=https://reggieteng.github.io/safari-pinned-tab.svg color=#1b1c1d>
+<link rel="shortcut icon" href=https://reggieteng.github.io/favicon.ico>
+<meta name=msapplication-TileColor content="#1b1c1d">
+<meta name=theme-color content="#1b1c1d">
+<meta itemprop=name content="etcd的配置文件">
+<meta itemprop=description content="etcd 是一种高度一致的分布式键值存储，它提供了一种可靠的方式来存储需要由分布式系统或机器集群访问的数据. 它有以下基本的功能
+ 通过http请求读取和写入值 将数据存储在分层组织的目录中，就像在标准文件系统中一样 观察特定键或目录的变化并对值的变化做出反应  今天我们就来了解一下etcd配置文件
+# This is the configuration file for the etcd server.# 节点名称 这个值和--initial-cluster flag (e.g., default=http://localhost:2380)中的key值一一对应，如果在集群环境中，name必须是唯一的，建议用主机名称或者机器IDname:'default'# 数据的存储路径data-dir:# 存放预写式日志,最大的作用是记录了整个数据变化的全部历程。未设置，共用--data-dir文件所在目录。可以配置路径为专用磁盘，有助于避免日志记录和其他io操作之间的io竞争wal-dir:# 数据快照触发数量，etcd处理指定的次数的事务提交后，生成数据快照snapshot-count:10000# 客户端连接后的心跳间隔（毫秒）heartbeat-interval:100# 集群选举的超时时间election-timeout:1000# Raise alarms when backend size exceeds the given quota. 0 means use the# default quota.quota-backend-bytes:0# 本节点与其他节点进行数据交换(选举，数据同步)的监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2380,将不限制node访问地址listen-peer-urls:http://localhost:2380# 监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2379,将不限制node访问地址listen-client-urls:http://localhost:2379# 要保留的快照文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。max-snapshots:5# 要保留的wal文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。max-wals:5# 逗号分隔的 CORS（跨源资源共享）来源白名单cors:# 通知其他节点与本节点进行数据交换（选举，同步）的地址，URL可以使用domain地址。与--listener-peer-urls不同在于listener-peer-urls用于请求客户端的接入控制，initial-advertise-peer-urls是告知其他集群节点访问哪个URL，一般来说，initial-advertise-peer-urlsl将是istener-peer-urls的子集initial-advertise-peer-urls:http://localhost:2380# 用于通知其他ETCD节点，客户端接入本节点的监听地址，一般来说advertise-client-urls是listen-client-urls子集，这些URL可以包含域名advertise-client-urls:http://localhost:2379# 集群发现服务地址discovery:# 发现服务失败时的预期行为（“exit”或“proxy”）。“proxy”仅支持v2 APIdiscovery-fallback:'proxy'# 用于流量到发现服务的HTTP代理discovery-proxy:# 用于引导集群的DNS sry域discovery-srv:# 用于引导初始集群配置，集群中所有节点的信息。initial-cluster:# 集群唯一标识，相同标识的节点将视为在一个集群内initial-cluster-token:'etcd-cluster'# 初始集群状态，设置new为初始静态或DNS引导期间出现的所有成员。如果将此选项设置为existing，则etcd将尝试加入现有群集。initial-cluster-state:'new'# 拒绝可能导致仲裁丢失的重新配置请求strict-reconfig-check:false# 接受etcd V2客户端请求enable-v2:true# 通过HTTP服务器启用运行时分析数据。地址位于客户端URL +“/ debug / pprof /”enable-pprof:true# 代理模式设置，（&#34;off&#34;, &#34;readonly&#34; or &#34;on&#34;）proxy:'off'# 在重新考虑代理请求之前，endpoints 将处于失败状态的时间（以毫秒为单位）proxy-failure-wait:5000# endpoints 刷新间隔的时间（以毫秒为单位）proxy-refresh-interval:30000# 拨号超时的时间（以毫秒为单位）或0表示禁用超时proxy-dial-timeout:1000# 写入超时的时间（以毫秒为单位）或0以禁用超时proxy-write-timeout:5000# 读取超时的时间（以毫秒为单位）或0以禁用超时。如果使用watch，不要改变这个值，因为使用长轮询请求proxy-read-timeout:0client-transport-security:# 客户端服务器TLS证书文件的路径。cert-file:# 客户端服务器TLS密钥文件的路径key-file:# 启用客户端证书验证。client-cert-auth:false# 客户端服务器的路径TLS可信CA证书文件trusted-ca-file:# 客户端TLS使用生成的证书auto-tls:falsepeer-transport-security:# Path to the peer server TLS cert file."><meta itemprop=datePublished content="2021-10-11T00:00:00+00:00">
+<meta itemprop=dateModified content="2021-10-11T00:00:00+00:00">
+<meta itemprop=wordCount content="156"><meta itemprop=image content="https://reggieteng.github.io">
+<meta itemprop=keywords content="etcd,kubernetes,">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://reggieteng.github.io">
+<meta name=twitter:title content="etcd的配置文件">
+<meta name=twitter:description content="etcd 是一种高度一致的分布式键值存储，它提供了一种可靠的方式来存储需要由分布式系统或机器集群访问的数据. 它有以下基本的功能
+ 通过http请求读取和写入值 将数据存储在分层组织的目录中，就像在标准文件系统中一样 观察特定键或目录的变化并对值的变化做出反应  今天我们就来了解一下etcd配置文件
+# This is the configuration file for the etcd server.# 节点名称 这个值和--initial-cluster flag (e.g., default=http://localhost:2380)中的key值一一对应，如果在集群环境中，name必须是唯一的，建议用主机名称或者机器IDname:'default'# 数据的存储路径data-dir:# 存放预写式日志,最大的作用是记录了整个数据变化的全部历程。未设置，共用--data-dir文件所在目录。可以配置路径为专用磁盘，有助于避免日志记录和其他io操作之间的io竞争wal-dir:# 数据快照触发数量，etcd处理指定的次数的事务提交后，生成数据快照snapshot-count:10000# 客户端连接后的心跳间隔（毫秒）heartbeat-interval:100# 集群选举的超时时间election-timeout:1000# Raise alarms when backend size exceeds the given quota. 0 means use the# default quota.quota-backend-bytes:0# 本节点与其他节点进行数据交换(选举，数据同步)的监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2380,将不限制node访问地址listen-peer-urls:http://localhost:2380# 监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2379,将不限制node访问地址listen-client-urls:http://localhost:2379# 要保留的快照文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。max-snapshots:5# 要保留的wal文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。max-wals:5# 逗号分隔的 CORS（跨源资源共享）来源白名单cors:# 通知其他节点与本节点进行数据交换（选举，同步）的地址，URL可以使用domain地址。与--listener-peer-urls不同在于listener-peer-urls用于请求客户端的接入控制，initial-advertise-peer-urls是告知其他集群节点访问哪个URL，一般来说，initial-advertise-peer-urlsl将是istener-peer-urls的子集initial-advertise-peer-urls:http://localhost:2380# 用于通知其他ETCD节点，客户端接入本节点的监听地址，一般来说advertise-client-urls是listen-client-urls子集，这些URL可以包含域名advertise-client-urls:http://localhost:2379# 集群发现服务地址discovery:# 发现服务失败时的预期行为（“exit”或“proxy”）。“proxy”仅支持v2 APIdiscovery-fallback:'proxy'# 用于流量到发现服务的HTTP代理discovery-proxy:# 用于引导集群的DNS sry域discovery-srv:# 用于引导初始集群配置，集群中所有节点的信息。initial-cluster:# 集群唯一标识，相同标识的节点将视为在一个集群内initial-cluster-token:'etcd-cluster'# 初始集群状态，设置new为初始静态或DNS引导期间出现的所有成员。如果将此选项设置为existing，则etcd将尝试加入现有群集。initial-cluster-state:'new'# 拒绝可能导致仲裁丢失的重新配置请求strict-reconfig-check:false# 接受etcd V2客户端请求enable-v2:true# 通过HTTP服务器启用运行时分析数据。地址位于客户端URL +“/ debug / pprof /”enable-pprof:true# 代理模式设置，（&#34;off&#34;, &#34;readonly&#34; or &#34;on&#34;）proxy:'off'# 在重新考虑代理请求之前，endpoints 将处于失败状态的时间（以毫秒为单位）proxy-failure-wait:5000# endpoints 刷新间隔的时间（以毫秒为单位）proxy-refresh-interval:30000# 拨号超时的时间（以毫秒为单位）或0表示禁用超时proxy-dial-timeout:1000# 写入超时的时间（以毫秒为单位）或0以禁用超时proxy-write-timeout:5000# 读取超时的时间（以毫秒为单位）或0以禁用超时。如果使用watch，不要改变这个值，因为使用长轮询请求proxy-read-timeout:0client-transport-security:# 客户端服务器TLS证书文件的路径。cert-file:# 客户端服务器TLS密钥文件的路径key-file:# 启用客户端证书验证。client-cert-auth:false# 客户端服务器的路径TLS可信CA证书文件trusted-ca-file:# 客户端TLS使用生成的证书auto-tls:falsepeer-transport-security:# Path to the peer server TLS cert file.">
+<meta property="og:title" content="etcd的配置文件">
+<meta property="og:description" content="etcd 是一种高度一致的分布式键值存储，它提供了一种可靠的方式来存储需要由分布式系统或机器集群访问的数据. 它有以下基本的功能
+ 通过http请求读取和写入值 将数据存储在分层组织的目录中，就像在标准文件系统中一样 观察特定键或目录的变化并对值的变化做出反应  今天我们就来了解一下etcd配置文件
+# This is the configuration file for the etcd server.# 节点名称 这个值和--initial-cluster flag (e.g., default=http://localhost:2380)中的key值一一对应，如果在集群环境中，name必须是唯一的，建议用主机名称或者机器IDname:'default'# 数据的存储路径data-dir:# 存放预写式日志,最大的作用是记录了整个数据变化的全部历程。未设置，共用--data-dir文件所在目录。可以配置路径为专用磁盘，有助于避免日志记录和其他io操作之间的io竞争wal-dir:# 数据快照触发数量，etcd处理指定的次数的事务提交后，生成数据快照snapshot-count:10000# 客户端连接后的心跳间隔（毫秒）heartbeat-interval:100# 集群选举的超时时间election-timeout:1000# Raise alarms when backend size exceeds the given quota. 0 means use the# default quota.quota-backend-bytes:0# 本节点与其他节点进行数据交换(选举，数据同步)的监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2380,将不限制node访问地址listen-peer-urls:http://localhost:2380# 监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2379,将不限制node访问地址listen-client-urls:http://localhost:2379# 要保留的快照文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。max-snapshots:5# 要保留的wal文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。max-wals:5# 逗号分隔的 CORS（跨源资源共享）来源白名单cors:# 通知其他节点与本节点进行数据交换（选举，同步）的地址，URL可以使用domain地址。与--listener-peer-urls不同在于listener-peer-urls用于请求客户端的接入控制，initial-advertise-peer-urls是告知其他集群节点访问哪个URL，一般来说，initial-advertise-peer-urlsl将是istener-peer-urls的子集initial-advertise-peer-urls:http://localhost:2380# 用于通知其他ETCD节点，客户端接入本节点的监听地址，一般来说advertise-client-urls是listen-client-urls子集，这些URL可以包含域名advertise-client-urls:http://localhost:2379# 集群发现服务地址discovery:# 发现服务失败时的预期行为（“exit”或“proxy”）。“proxy”仅支持v2 APIdiscovery-fallback:'proxy'# 用于流量到发现服务的HTTP代理discovery-proxy:# 用于引导集群的DNS sry域discovery-srv:# 用于引导初始集群配置，集群中所有节点的信息。initial-cluster:# 集群唯一标识，相同标识的节点将视为在一个集群内initial-cluster-token:'etcd-cluster'# 初始集群状态，设置new为初始静态或DNS引导期间出现的所有成员。如果将此选项设置为existing，则etcd将尝试加入现有群集。initial-cluster-state:'new'# 拒绝可能导致仲裁丢失的重新配置请求strict-reconfig-check:false# 接受etcd V2客户端请求enable-v2:true# 通过HTTP服务器启用运行时分析数据。地址位于客户端URL +“/ debug / pprof /”enable-pprof:true# 代理模式设置，（&#34;off&#34;, &#34;readonly&#34; or &#34;on&#34;）proxy:'off'# 在重新考虑代理请求之前，endpoints 将处于失败状态的时间（以毫秒为单位）proxy-failure-wait:5000# endpoints 刷新间隔的时间（以毫秒为单位）proxy-refresh-interval:30000# 拨号超时的时间（以毫秒为单位）或0表示禁用超时proxy-dial-timeout:1000# 写入超时的时间（以毫秒为单位）或0以禁用超时proxy-write-timeout:5000# 读取超时的时间（以毫秒为单位）或0以禁用超时。如果使用watch，不要改变这个值，因为使用长轮询请求proxy-read-timeout:0client-transport-security:# 客户端服务器TLS证书文件的路径。cert-file:# 客户端服务器TLS密钥文件的路径key-file:# 启用客户端证书验证。client-cert-auth:false# 客户端服务器的路径TLS可信CA证书文件trusted-ca-file:# 客户端TLS使用生成的证书auto-tls:falsepeer-transport-security:# Path to the peer server TLS cert file.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://reggieteng.github.io/posts/2021/10/etcd%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:image" content="https://reggieteng.github.io"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-10-11T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-10-11T00:00:00+00:00">
+<meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/drone%E7%9A%84yml%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/05/sqlx-golang%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-strconv/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang/x%E5%8C%85-ssh/">
+<meta property="article:section" content="kubernetes">
+<meta property="article:published_time" content="2021-10-11 00:00:00 +0000 UTC">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<span class=header__inner>
+<a href=https://reggieteng.github.io/ style=text-decoration:none>
+<div class=logo>
+<span class=logo__mark>></span>
+<span class=logo__text>$ cd /home/</span>
+<span class=logo__cursor>
+</span>
+</div>
+</a>
+<span class=header__right>
+<nav class=menu>
+<ul class=menu__inner><li><a href=https://reggieteng.github.io/about/>About</a></li><li><a href=https://reggieteng.github.io/posts/>Posts</a></li>
+</ul>
+</nav>
+<span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span>
+</span>
+</span>
+</header>
+<div class=content>
+<main class=post>
+<div class=post-info>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+One minute
+</p>
+</div>
+<article>
+<h1 class=post-title>
+<a href=https://reggieteng.github.io/posts/2021/10/etcd%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>etcd的配置文件</a>
+</h1>
+<div class=post-content>
+<p>etcd 是一种高度一致的分布式键值存储，它提供了一种可靠的方式来存储需要由分布式系统或机器集群访问的数据.
+它有以下基本的功能</p>
+<ul>
+<li>通过http请求读取和写入值</li>
+<li>将数据存储在分层组织的目录中，就像在标准文件系统中一样</li>
+<li>观察特定键或目录的变化并对值的变化做出反应</li>
+</ul>
+<p>今天我们就来了解一下etcd配置文件</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=c># This is the configuration file for the etcd server.</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 节点名称 这个值和--initial-cluster flag (e.g., default=http://localhost:2380)中的key值一一对应，如果在集群环境中，name必须是唯一的，建议用主机名称或者机器ID</span><span class=w>
+</span><span class=w></span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;default&#39;</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 数据的存储路径</span><span class=w>
+</span><span class=w></span><span class=nt>data-dir</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 存放预写式日志,最大的作用是记录了整个数据变化的全部历程。未设置，共用--data-dir文件所在目录。可以配置路径为专用磁盘，有助于避免日志记录和其他io操作之间的io竞争</span><span class=w>
+</span><span class=w></span><span class=nt>wal-dir</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 数据快照触发数量，etcd处理指定的次数的事务提交后，生成数据快照</span><span class=w>
+</span><span class=w></span><span class=nt>snapshot-count</span><span class=p>:</span><span class=w> </span><span class=m>10000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 客户端连接后的心跳间隔（毫秒）</span><span class=w>
+</span><span class=w></span><span class=nt>heartbeat-interval</span><span class=p>:</span><span class=w> </span><span class=m>100</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 集群选举的超时时间</span><span class=w>
+</span><span class=w></span><span class=nt>election-timeout</span><span class=p>:</span><span class=w> </span><span class=m>1000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Raise alarms when backend size exceeds the given quota. 0 means use the</span><span class=w>
+</span><span class=w></span><span class=c># default quota.</span><span class=w>
+</span><span class=w></span><span class=nt>quota-backend-bytes</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 本节点与其他节点进行数据交换(选举，数据同步)的监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2380,将不限制node访问地址</span><span class=w>
+</span><span class=w></span><span class=nt>listen-peer-urls</span><span class=p>:</span><span class=w> </span><span class=l>http://localhost:2380</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 监听地址，地址写法是 scheme://IP:port，可以多个并用逗号隔开，如果配置是http://0.0.0.0:2379,将不限制node访问地址</span><span class=w>
+</span><span class=w></span><span class=nt>listen-client-urls</span><span class=p>:</span><span class=w> </span><span class=l>http://localhost:2379</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 要保留的快照文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。</span><span class=w>
+</span><span class=w></span><span class=nt>max-snapshots</span><span class=p>:</span><span class=w> </span><span class=m>5</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 要保留的wal文件的最大数量，0是无限制。Windows用户的默认值是无限制的，建议设置5以下的值。</span><span class=w>
+</span><span class=w></span><span class=nt>max-wals</span><span class=p>:</span><span class=w> </span><span class=m>5</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 逗号分隔的 CORS（跨源资源共享）来源白名单</span><span class=w>
+</span><span class=w></span><span class=nt>cors</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 通知其他节点与本节点进行数据交换（选举，同步）的地址，URL可以使用domain地址。与--listener-peer-urls不同在于listener-peer-urls用于请求客户端的接入控制，initial-advertise-peer-urls是告知其他集群节点访问哪个URL，一般来说，initial-advertise-peer-urlsl将是istener-peer-urls的子集</span><span class=w>
+</span><span class=w></span><span class=nt>initial-advertise-peer-urls</span><span class=p>:</span><span class=w> </span><span class=l>http://localhost:2380</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 用于通知其他ETCD节点，客户端接入本节点的监听地址，一般来说advertise-client-urls是listen-client-urls子集，这些URL可以包含域名</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>advertise-client-urls</span><span class=p>:</span><span class=w> </span><span class=l>http://localhost:2379</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 集群发现服务地址</span><span class=w>
+</span><span class=w></span><span class=nt>discovery</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 发现服务失败时的预期行为（“exit”或“proxy”）。“proxy”仅支持v2 API</span><span class=w>
+</span><span class=w></span><span class=nt>discovery-fallback</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;proxy&#39;</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 用于流量到发现服务的HTTP代理</span><span class=w>
+</span><span class=w></span><span class=nt>discovery-proxy</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 用于引导集群的DNS sry域</span><span class=w>
+</span><span class=w></span><span class=nt>discovery-srv</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 用于引导初始集群配置，集群中所有节点的信息。</span><span class=w>
+</span><span class=w></span><span class=nt>initial-cluster</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 集群唯一标识，相同标识的节点将视为在一个集群内</span><span class=w>
+</span><span class=w></span><span class=nt>initial-cluster-token</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;etcd-cluster&#39;</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 初始集群状态，设置new为初始静态或DNS引导期间出现的所有成员。如果将此选项设置为existing，则etcd将尝试加入现有群集。</span><span class=w>
+</span><span class=w></span><span class=nt>initial-cluster-state</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;new&#39;</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 拒绝可能导致仲裁丢失的重新配置请求</span><span class=w>
+</span><span class=w></span><span class=nt>strict-reconfig-check</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 接受etcd V2客户端请求</span><span class=w>
+</span><span class=w></span><span class=nt>enable-v2</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 通过HTTP服务器启用运行时分析数据。地址位于客户端URL +“/ debug / pprof /”</span><span class=w>
+</span><span class=w></span><span class=nt>enable-pprof</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 代理模式设置，（&#34;off&#34;, &#34;readonly&#34; or &#34;on&#34;）</span><span class=w>
+</span><span class=w></span><span class=nt>proxy</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;off&#39;</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 在重新考虑代理请求之前，endpoints 将处于失败状态的时间（以毫秒为单位）</span><span class=w>
+</span><span class=w></span><span class=nt>proxy-failure-wait</span><span class=p>:</span><span class=w> </span><span class=m>5000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># endpoints 刷新间隔的时间（以毫秒为单位）</span><span class=w>
+</span><span class=w></span><span class=nt>proxy-refresh-interval</span><span class=p>:</span><span class=w> </span><span class=m>30000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 拨号超时的时间（以毫秒为单位）或0表示禁用超时</span><span class=w>
+</span><span class=w></span><span class=nt>proxy-dial-timeout</span><span class=p>:</span><span class=w> </span><span class=m>1000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 写入超时的时间（以毫秒为单位）或0以禁用超时</span><span class=w>
+</span><span class=w></span><span class=nt>proxy-write-timeout</span><span class=p>:</span><span class=w> </span><span class=m>5000</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 读取超时的时间（以毫秒为单位）或0以禁用超时。如果使用watch，不要改变这个值，因为使用长轮询请求</span><span class=w>
+</span><span class=w></span><span class=nt>proxy-read-timeout</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>client-transport-security</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=c># 客户端服务器TLS证书文件的路径。</span><span class=w>
+</span><span class=w>  </span><span class=nt>cert-file</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c># 客户端服务器TLS密钥文件的路径</span><span class=w>
+</span><span class=w>  </span><span class=nt>key-file</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c># 启用客户端证书验证。</span><span class=w>
+</span><span class=w>  </span><span class=nt>client-cert-auth</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c># 客户端服务器的路径TLS可信CA证书文件</span><span class=w>
+</span><span class=w>  </span><span class=nt>trusted-ca-file</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c># 客户端TLS使用生成的证书</span><span class=w>
+</span><span class=w>  </span><span class=nt>auto-tls</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>peer-transport-security</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=c># Path to the peer server TLS cert file.</span><span class=w>
+</span><span class=w>  </span><span class=nt>cert-file</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c># Path to the peer server TLS key file.</span><span class=w>
+</span><span class=w>  </span><span class=nt>key-file</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c># Enable peer client cert authentication.</span><span class=w>
+</span><span class=w>  </span><span class=nt>client-cert-auth</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c># Path to the peer server TLS trusted CA cert file.</span><span class=w>
+</span><span class=w>  </span><span class=nt>trusted-ca-file</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c># Peer TLS using generated certificates.</span><span class=w>
+</span><span class=w>  </span><span class=nt>auto-tls</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># The validity period of the self-signed certificate, the unit is year.</span><span class=w>
+</span><span class=w></span><span class=nt>self-signed-cert-validity</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Enable debug-level logging for etcd.</span><span class=w>
+</span><span class=w></span><span class=nt>log-level</span><span class=p>:</span><span class=w> </span><span class=l>debug</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>logger</span><span class=p>:</span><span class=w> </span><span class=l>zap</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Specify &#39;stdout&#39; or &#39;stderr&#39; to skip journald logging even when running under systemd.</span><span class=w>
+</span><span class=w></span><span class=nt>log-outputs</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>stderr]</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># 强制创建新的单成员群集。它提交配置更改，强制删除集群中的所有现有成员并添加自身。需要将其设置为还原备份。</span><span class=w>
+</span><span class=w></span><span class=nt>force-new-cluster</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w></span><span class=c># auto-compaction-retention配置的基于时间保留的三种模式：periodic, revision. periodic</span><span class=w>
+</span><span class=w></span><span class=nt>auto-compaction-mode</span><span class=p>:</span><span class=w> </span><span class=l>periodic</span><span class=w>
+</span><span class=w></span><span class=c># 在一个小时内为mvcc键值存储的自动压实保留。0表示禁用自动压缩</span><span class=w>
+</span><span class=w></span><span class=nt>auto-compaction-retention</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;1&#34;</span><span class=w>
+</span></code></pre></div>
+</div>
+</article>
+<hr>
+<div class=post-info>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg>
+<span class=tag><a href=https://reggieteng.github.io/tags/etcd/>etcd</a></span>
+<span class=tag><a href=https://reggieteng.github.io/tags/kubernetes/>kubernetes</a></span>
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+<span class=tag><a href=https://reggieteng.github.io/categories/kubernetes/>kubernetes</a></span>
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+156 Words
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+2021-10-11
+</p>
+</div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h></span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<span class="button next">
+<a href=https://reggieteng.github.io/posts/2021/08/drone%E7%9A%84yml%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/>
+<span class=button__text>drone的yml文件详解</span>
+<span class=button__icon>→</span>
+</a>
+</span>
+</div>
+</div>
+</main>
+</div>
+<footer class=footer>
+</footer>
+</div>
+<script type=text/javascript src=https://reggieteng.github.io/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
+</body>
+</html>
