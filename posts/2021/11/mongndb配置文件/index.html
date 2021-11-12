@@ -1,0 +1,620 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=author content="map[name:Reggie]">
+<meta name=description content="mongodb的配置文件是mongod.conf，文件路径一般为/etc/mongod.conf下面就是一个配置文件的例子
+# mongod.conf# file path:/etc/mongod.conf# for documentation of all options, see:# http://docs.mongodb.org/manual/reference/configuration-options/# Where and how to store data.storage:dbPath:/var/lib/mongodbjournal:enabled:true# engine:# wiredTiger:# where to write logging data.systemLog:destination:filelogAppend:truepath:/var/log/mongodb/mongod.log# network interfacesnet:port:27017bindIp:127.0.0.1# how the process runsprocessManagement:timeZoneInfo:/usr/share/zoneinfo#security:#operationProfiling:#replication:#sharding:## Enterprise-Only Options:#auditLog:#snmp:配置文件由以下几部分组成
+ systemLog processManagement cloud net security setParameter storage operationProfiling replication sharding auditLog snmp  systemLog systemLog:verbosity:&amp;lt;int&amp;gt; default:0quiet:&amp;lt;boolean&amp;gt; default:falsetraceAllExceptions:&amp;lt;boolean&amp;gt; default:falsesyslogFacility:&amp;lt;string&amp;gt;path:&amp;lt;string&amp;gt;logAppend:&amp;lt;boolean&amp;gt; default:falselogRotate:&amp;lt;string&amp;gt; default:renamedestination:&amp;lt;string&amp;gt;timeStampFormat:&amp;lt;string&amp;gt;component:accessControl:verbosity:&amp;lt;int&amp;gt;command:verbosity:&amp;lt;int&amp;gt;# COMMENT additional component verbosity settings omitted for brevitysystemLog.verbosity 组件的默认日志消息详细级别。详细级别决定了 MongoDB 输出的信息和调试消息的数量
+取值范围：0-5
+systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mongod">
+<meta name=keywords content=",mongodb,mongo">
+<meta name=robots content="noodp">
+<meta name=theme-color content>
+<link rel=canonical href=https://reggieteng.github.io/posts/2021/11/mongndb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>
+<title>
+mongndb配置文件 :: Hello — Hello Friends
+</title>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css rel=stylesheet type=text/css>
+<link rel=stylesheet href=https://reggieteng.github.io/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css>
+<link rel=apple-touch-icon sizes=180x180 href=https://reggieteng.github.io/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://reggieteng.github.io/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=https://reggieteng.github.io/favicon-16x16.png>
+<link rel=manifest href=https://reggieteng.github.io/site.webmanifest>
+<link rel=mask-icon href=https://reggieteng.github.io/safari-pinned-tab.svg color=#1b1c1d>
+<link rel="shortcut icon" href=https://reggieteng.github.io/favicon.ico>
+<meta name=msapplication-TileColor content="#1b1c1d">
+<meta name=theme-color content="#1b1c1d">
+<meta itemprop=name content="mongndb配置文件">
+<meta itemprop=description content="mongodb的配置文件是mongod.conf，文件路径一般为/etc/mongod.conf下面就是一个配置文件的例子
+# mongod.conf# file path:/etc/mongod.conf# for documentation of all options, see:# http://docs.mongodb.org/manual/reference/configuration-options/# Where and how to store data.storage:dbPath:/var/lib/mongodbjournal:enabled:true# engine:# wiredTiger:# where to write logging data.systemLog:destination:filelogAppend:truepath:/var/log/mongodb/mongod.log# network interfacesnet:port:27017bindIp:127.0.0.1# how the process runsprocessManagement:timeZoneInfo:/usr/share/zoneinfo#security:#operationProfiling:#replication:#sharding:## Enterprise-Only Options:#auditLog:#snmp:配置文件由以下几部分组成
+ systemLog processManagement cloud net security setParameter storage operationProfiling replication sharding auditLog snmp  systemLog systemLog:verbosity:<int> default:0quiet:<boolean> default:falsetraceAllExceptions:<boolean> default:falsesyslogFacility:<string>path:<string>logAppend:<boolean> default:falselogRotate:<string> default:renamedestination:<string>timeStampFormat:<string>component:accessControl:verbosity:<int>command:verbosity:<int># COMMENT additional component verbosity settings omitted for brevitysystemLog.verbosity 组件的默认日志消息详细级别。详细级别决定了 MongoDB 输出的信息和调试消息的数量
+取值范围：0-5
+systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mongod"><meta itemprop=datePublished content="2021-11-11T00:00:00+00:00">
+<meta itemprop=dateModified content="2021-11-11T00:00:00+00:00">
+<meta itemprop=wordCount content="678"><meta itemprop=image content="https://reggieteng.github.io">
+<meta itemprop=keywords content="mongodb,mongo,">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://reggieteng.github.io">
+<meta name=twitter:title content="mongndb配置文件">
+<meta name=twitter:description content="mongodb的配置文件是mongod.conf，文件路径一般为/etc/mongod.conf下面就是一个配置文件的例子
+# mongod.conf# file path:/etc/mongod.conf# for documentation of all options, see:# http://docs.mongodb.org/manual/reference/configuration-options/# Where and how to store data.storage:dbPath:/var/lib/mongodbjournal:enabled:true# engine:# wiredTiger:# where to write logging data.systemLog:destination:filelogAppend:truepath:/var/log/mongodb/mongod.log# network interfacesnet:port:27017bindIp:127.0.0.1# how the process runsprocessManagement:timeZoneInfo:/usr/share/zoneinfo#security:#operationProfiling:#replication:#sharding:## Enterprise-Only Options:#auditLog:#snmp:配置文件由以下几部分组成
+ systemLog processManagement cloud net security setParameter storage operationProfiling replication sharding auditLog snmp  systemLog systemLog:verbosity:<int> default:0quiet:<boolean> default:falsetraceAllExceptions:<boolean> default:falsesyslogFacility:<string>path:<string>logAppend:<boolean> default:falselogRotate:<string> default:renamedestination:<string>timeStampFormat:<string>component:accessControl:verbosity:<int>command:verbosity:<int># COMMENT additional component verbosity settings omitted for brevitysystemLog.verbosity 组件的默认日志消息详细级别。详细级别决定了 MongoDB 输出的信息和调试消息的数量
+取值范围：0-5
+systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mongod">
+<meta property="og:title" content="mongndb配置文件">
+<meta property="og:description" content="mongodb的配置文件是mongod.conf，文件路径一般为/etc/mongod.conf下面就是一个配置文件的例子
+# mongod.conf# file path:/etc/mongod.conf# for documentation of all options, see:# http://docs.mongodb.org/manual/reference/configuration-options/# Where and how to store data.storage:dbPath:/var/lib/mongodbjournal:enabled:true# engine:# wiredTiger:# where to write logging data.systemLog:destination:filelogAppend:truepath:/var/log/mongodb/mongod.log# network interfacesnet:port:27017bindIp:127.0.0.1# how the process runsprocessManagement:timeZoneInfo:/usr/share/zoneinfo#security:#operationProfiling:#replication:#sharding:## Enterprise-Only Options:#auditLog:#snmp:配置文件由以下几部分组成
+ systemLog processManagement cloud net security setParameter storage operationProfiling replication sharding auditLog snmp  systemLog systemLog:verbosity:<int> default:0quiet:<boolean> default:falsetraceAllExceptions:<boolean> default:falsesyslogFacility:<string>path:<string>logAppend:<boolean> default:falselogRotate:<string> default:renamedestination:<string>timeStampFormat:<string>component:accessControl:verbosity:<int>command:verbosity:<int># COMMENT additional component verbosity settings omitted for brevitysystemLog.verbosity 组件的默认日志消息详细级别。详细级别决定了 MongoDB 输出的信息和调试消息的数量
+取值范围：0-5
+systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mongod">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://reggieteng.github.io/posts/2021/11/mongndb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:image" content="https://reggieteng.github.io"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-11-11T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-11-11T00:00:00+00:00">
+<meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/10/etcd%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/drone%E7%9A%84yml%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/05/sqlx-golang%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-strconv/">
+<meta property="article:section" content="mongodb">
+<meta property="article:published_time" content="2021-11-11 00:00:00 +0000 UTC">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<span class=header__inner>
+<a href=https://reggieteng.github.io/ style=text-decoration:none>
+<div class=logo>
+<span class=logo__mark>></span>
+<span class=logo__text>$ cd /home/</span>
+<span class=logo__cursor>
+</span>
+</div>
+</a>
+<span class=header__right>
+<nav class=menu>
+<ul class=menu__inner><li><a href=https://reggieteng.github.io/about/>About</a></li><li><a href=https://reggieteng.github.io/posts/>Posts</a></li>
+</ul>
+</nav>
+<span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span>
+</span>
+</span>
+</header>
+<div class=content>
+<main class=post>
+<div class=post-info>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+4 minutes
+</p>
+</div>
+<article>
+<h1 class=post-title>
+<a href=https://reggieteng.github.io/posts/2021/11/mongndb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>mongndb配置文件</a>
+</h1>
+<div class=post-content>
+<p>mongodb的配置文件是mongod.conf，文件路径一般为<code>/etc/mongod.conf</code>下面就是一个配置文件的例子</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=c># mongod.conf</span><span class=w>
+</span><span class=w></span><span class=c># file path:/etc/mongod.conf</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># for documentation of all options, see:</span><span class=w>
+</span><span class=w></span><span class=c>#   http://docs.mongodb.org/manual/reference/configuration-options/</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># Where and how to store data.</span><span class=w>
+</span><span class=w></span><span class=nt>storage</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>dbPath</span><span class=p>:</span><span class=w> </span><span class=l>/var/lib/mongodb</span><span class=w>
+</span><span class=w>  </span><span class=nt>journal</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w></span><span class=c>#  engine:</span><span class=w>
+</span><span class=w></span><span class=c>#  wiredTiger:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># where to write logging data.</span><span class=w>
+</span><span class=w></span><span class=nt>systemLog</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>destination</span><span class=p>:</span><span class=w> </span><span class=l>file</span><span class=w>
+</span><span class=w>  </span><span class=nt>logAppend</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>  </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/var/log/mongodb/mongod.log</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># network interfaces</span><span class=w>
+</span><span class=w></span><span class=nt>net</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>port</span><span class=p>:</span><span class=w> </span><span class=m>27017</span><span class=w>
+</span><span class=w>  </span><span class=nt>bindIp</span><span class=p>:</span><span class=w> </span><span class=m>127.0.0.1</span><span class=w>
+</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c># how the process runs</span><span class=w>
+</span><span class=w></span><span class=nt>processManagement</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>timeZoneInfo</span><span class=p>:</span><span class=w> </span><span class=l>/usr/share/zoneinfo</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c>#security:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c>#operationProfiling:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c>#replication:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c>#sharding:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c>## Enterprise-Only Options:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c>#auditLog:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=c>#snmp:</span><span class=w>
+</span><span class=w>
+</span></code></pre></div><p>配置文件由以下几部分组成</p>
+<ul>
+<li><a href=#systemLog>systemLog</a></li>
+<li><a href=#processManagement>processManagement</a></li>
+<li><a href=#cloud>cloud</a></li>
+<li><a href=#net>net</a></li>
+<li><a href=#security>security</a></li>
+<li><a href=#setParameter>setParameter</a></li>
+<li><a href=#storage>storage</a></li>
+<li><a href=#operationProfiling>operationProfiling</a></li>
+<li><a href=#replication>replication</a></li>
+<li><a href=#sharding>sharding</a></li>
+<li><a href=#auditLog>auditLog</a></li>
+<li><a href=#snmp>snmp</a></li>
+</ul>
+<h2 id=systemlog>systemLog</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>systemLog</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>verbosity</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt; default:0</span><span class=w>
+</span><span class=w>   </span><span class=nt>quiet</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span><span class=w>   </span><span class=nt>traceAllExceptions</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span><span class=w>   </span><span class=nt>syslogFacility</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>logAppend</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span><span class=w>   </span><span class=nt>logRotate</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt; default:rename</span><span class=w>
+</span><span class=w>   </span><span class=nt>destination</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>timeStampFormat</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>component</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>accessControl</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>verbosity</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>command</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>verbosity</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt;</span><span class=w>
+</span><span class=w>
+</span><span class=w>      </span><span class=c># COMMENT additional component verbosity settings omitted for brevity</span><span class=w>
+</span></code></pre></div><h3 id=systemlogverbosity>systemLog.verbosity</h3>
+<p>组件的默认日志消息详细级别。详细级别决定了 MongoDB 输出的信息和调试消息的数量</p>
+<p>取值范围：0-5</p>
+<h3 id=systemlogquiet>systemLog.quiet</h3>
+<p>在尝试限制输出量的安静模式下运行 mongos 或 mongod</p>
+<p><code>systemLog.quiet 不推荐用于生产系统，因为它可能会使特定连接期间的跟踪问题变得更加困难</code></p>
+<h3 id=systemlogsyslogfacility>systemLog.syslogFacility</h3>
+<p>打印用于调试的详细信息。用于与支持相关的故障排除的附加日志记录</p>
+<h3 id=systemlogpath>systemLog.path</h3>
+<p>mongod 或 mongos 应将所有诊断日志信息发送到的日志文件的路径，而不是标准输出或主机的系统日志。 MongoDB 在指定路径创建日志文件,一般取默认值</p>
+<p>Linux 包 init 脚本不希望 systemLog.path 更改默认值。如果您使用 Linux 软件包并更改 systemLog.path，则必须使用您自己的 init 脚本并禁用内置脚本。</p>
+<h3 id=systemloglogappend>systemLog.logAppend</h3>
+<p>当为 true 时，mongos 或 mongod 会在 mongos 或 mongod 实例重新启动时将新条目附加到现有日志文件的末尾。如果没有此选项，mongod 将备份现有日志并创建一个新文件</p>
+<h3 id=systemloglogrotate>systemLog.logRotate</h3>
+<p>确定轮换服务器日志/审计日志时 logRotate 命令的行为。</p>
+<p>取值范围：rename，reopen</p>
+<h3 id=systemlogdestination>systemLog.destination</h3>
+<p>MongoDB 将所有日志输出发送到的目标。指定文件或系统日志。如果指定file，还必须指定systemLog.path</p>
+<p>如果不指定 systemLog.destination，MongoDB 将所有日志输出发送到标准输出</p>
+<p>取值范围：file，syslog</p>
+<h3 id=systemlogtimestampformat>systemLog.timeStampFormat</h3>
+<p>日志消息中时间戳的时间格式。</p>
+<p>取值范围：<code>iso8601-utc</code>，<code>iso8601-local</code></p>
+<p>iso8601-utc：以 ISO-8601 格式以协调世界时 (UTC) 显示时间戳</p>
+<p>iso8601-local：以 ISO-8601 格式显示本地时间的时间戳</p>
+<h3 id=systemlogcomponent>systemLog.component</h3>
+<h2 id=processmanagement>processManagement</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>processManagement</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>fork</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span><span class=w>   </span><span class=nt>pidFilePath</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>timeZoneInfo</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span></code></pre></div><h3 id=processmanagementfork>processManagement.fork</h3>
+<p>启用在后台运行 mongos 或 mongod 进程的守护进程模式。默认情况下，mongos 或 mongod 不作为守护进程运行：通常，您将 mongos 或 mongod 作为守护进程运行，通过使用 processManagement.fork 或使用处理守护进程的控制进程（例如，与<code>upstart</code>和<code>systemd</code>一样）</p>
+<h3 id=processmanagementpidfilepath>processManagement.pidFilePath</h3>
+<p>指定一个文件位置来存储 mongos 或 mongod 进程的进程 ID (PID)。运行 mongod 或 mongos 进程的用户必须能够写入此路径。如果未指定 processManagement.pidFilePath 选项，则进程不会创建 PID 文件。此选项通常仅与 processManagement.fork 设置结合使用</p>
+<h3 id=processmanagementtimezoneinfo>processManagement.timeZoneInfo</h3>
+<p>加载时区数据库的完整路径。如果未提供此选项，则 MongoDB 将使用其内置时区数据库</p>
+<h2 id=cloud>cloud</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>cloud</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>monitoring</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>free</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt; default:runtime</span><span class=w>
+</span><span class=w>         </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span></code></pre></div><h3 id=cloudmonitoringfreestate>cloud.monitoring.free.state</h3>
+<p>启用或禁用免费的 MongoDB 云监控</p>
+<p>取值范围：<code>runtime</code>，<code>on</code>，<code>off</code></p>
+<h3 id=cloudmonitoringfreetags>cloud.monitoring.free.tags</h3>
+<p>用于描述环境上下文的可选标记。该标签可以在启动时作为免费 MongoDB Cloud 监控注册的一部分发送</p>
+<h2 id=net>net</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>net</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>port</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>bindIp</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>bindIpAll</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>maxIncomingConnections</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt; default:65536</span><span class=w>
+</span><span class=w>   </span><span class=nt>wireObjectCheck</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:true</span><span class=w>
+</span><span class=w>   </span><span class=nt>ipv6</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span><span class=w>   </span><span class=nt>unixDomainSocket</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>pathPrefix</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>filePermissions</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>tls</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>certificateSelector</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clusterCertificateSelector</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>mode</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>certificateKeyFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>certificateKeyFilePassword</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clusterFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clusterPassword</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>CAFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clusterCAFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>CRLFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>allowConnectionsWithoutCertificates</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>allowInvalidCertificates</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>allowInvalidHostnames</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>disabledProtocols</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>FIPSMode</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>logVersions</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>compression</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>compressors</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span></code></pre></div><h3 id=netport>net.port</h3>
+<p>MongoDB 实例侦听客户端连接的 TCP 端口</p>
+<ul>
+<li>27017 for mongod (if not a shard member or a config server member) or mongos instance</li>
+<li>27018 if mongod is a shard member</li>
+<li>27019 if mongod is a config server member</li>
+</ul>
+<h3 id=netbindip>net.bindIp</h3>
+<p>mongos 或 mongod 应在其上侦听客户端连接的主机名和/或 IP 地址和/或完整的 Unix 域套接字路径。您可以将 mongos 或 mongod 附加到任何接口。要绑定到多个地址，请输入以逗号分隔的值列表</p>
+<h3 id=netbindipall>net.bindIpAll</h3>
+<h3 id=netmaxincomingconnections>net.maxIncomingConnections</h3>
+<p>mongos 或 mongod 将接受的最大同时连接数。如果此设置高于操作系统配置的最大连接跟踪阈值，则此设置无效。</p>
+<p>不要为此选项分配太低的值，否则您将在正常应用程序操作期间遇到错误。</p>
+<p>如果您有一个创建多个连接并允许它们超时而不是关闭它们的客户端，这对 mongos 尤其有用。</p>
+<p>在这种情况下，将 maxIncomingConnections 设置为略高于客户端创建的最大连接数或连接池的最大大小的值。</p>
+<p>此设置可防止 mongos 在单个分片上引起连接尖峰。像这样的尖峰可能会破坏分片集群的操作和内存分配。</p>
+<h3 id=netwireobjectcheck>net.wireObjectCheck</h3>
+<p>当为 true 时，mongod 或 mongos 实例会在收到来自客户端的所有请求时进行验证，以防止客户端将格式错误或无效的 BSON 插入到 MongoDB 数据库中。</p>
+<p>对于具有高度子文档嵌套的对象，net.wireObjectCheck 对性能的影响很小</p>
+<h3 id=netipv6>net.ipv6</h3>
+<p>将 net.ipv6 设置为 true 以启用 IPv6 支持。 mongos/mongod 默认禁用 IPv6 支持。</p>
+<h3 id=netunixdomainsocket>net.unixDomainSocket</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>net</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>unixDomainSocket</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:true</span><span class=w>
+</span><span class=w>      </span><span class=nt>pathPrefix</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt; default:/tmp</span><span class=w>
+</span><span class=w>      </span><span class=nt>filePermissions</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt; default:0700</span><span class=w>
+</span></code></pre></div><h4 id=netunixdomainsocketenabled>net.unixDomainSocket.enabled</h4>
+<p>启用或禁用侦听 UNIX 域套接字。 net.unixDomainSocket.enabled 仅适用于基于 Unix 的系统</p>
+<h4 id=netunixdomainsocketpathprefix>net.unixDomainSocket.pathPrefix</h4>
+<p>UNIX 套接字的路径。 net.unixDomainSocket.pathPrefix 仅适用于基于 Unix 的系统。</p>
+<h4 id=netunixdomainsocketfilepermissions>net.unixDomainSocket.filePermissions</h4>
+<p>设置 UNIX 域套接字文件的权限。</p>
+<h3 id=nettls>net.tls</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>net</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>tls</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>mode</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>certificateKeyFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>certificateKeyFilePassword</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>certificateSelector</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clusterCertificateSelector</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clusterFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clusterPassword</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>CAFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clusterCAFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>CRLFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>allowConnectionsWithoutCertificates</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>allowInvalidCertificates</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>allowInvalidHostnames</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>disabledProtocols</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>FIPSMode</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>logVersions</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span></code></pre></div><h4 id=nettlsmode>net.tls.mode</h4>
+<p>启用用于所有网络连接的 TLS</p>
+<p>取值范围：<code>disabled</code>，<code>allowTLS</code>，<code>preferTLS</code>，<code>requireTLS</code></p>
+<ul>
+<li>disabled：服务器不使用 TLS</li>
+<li>allowTLS：服务器之间的连接不使用 TLS。对于传入连接，服务器接受 TLS 和非 TLS</li>
+<li>preferTLS：服务器之间的连接使用 TLS。对于传入连接，服务器接受 TLS 和非 TLS</li>
+<li>requireTLS：服务器仅使用并接受 TLS 加密连接</li>
+</ul>
+<h4 id=更多nettls配置信息httpsdocsmongodbcommanualreferenceconfiguration-optionsnettls-options><a href=https://docs.mongodb.com/manual/reference/configuration-options/#net.tls-options>更多net.tls配置信息</a></h4>
+<h2 id=security>security</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>security</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>keyFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>clusterAuthMode</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt; default:keyFile</span><span class=w>
+</span><span class=w>   </span><span class=nt>authorization</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt; default:disabled</span><span class=w>
+</span><span class=w>   </span><span class=nt>transitionToAuth</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span><span class=w>   </span><span class=nt>javascriptEnabled</span><span class=p>:</span><span class=w>  </span><span class=l>&lt;boolean&gt; default:true</span><span class=w>
+</span><span class=w>   </span><span class=nt>redactClientLogData</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>clusterIpSourceAllowlist</span><span class=p>:</span><span class=w>
+</span><span class=w>     </span>- <span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>sasl</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>hostName</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>serviceName</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>saslauthdSocketPath</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>enableEncryption</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span><span class=w>   </span><span class=nt>encryptionCipherMode</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt; default:AES256-CBC</span><span class=w>
+</span><span class=w>   </span><span class=nt>encryptionKeyFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>kmip</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>keyIdentifier</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>rotateMasterKey</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>serverName</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>port</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clientCertificateFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clientCertificatePassword</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>clientCertificateSelector</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>serverCAFile</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>connectRetries</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>connectTimeoutMS</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>ldap</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>servers</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>bind</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>method</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>saslMechanisms</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>queryUser</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>queryPassword</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>useOSDefaults</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>transportSecurity</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>timeoutMS</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>userToDNMapping</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>authz</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>queryTemplate</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>validateLDAPServerConfig</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span></code></pre></div><h3 id=securitykeyfile>security.keyFile</h3>
+<p>密钥文件的路径，该文件存储 MongoDB 实例用于在分片集群或副本集中相互进行身份验证的共享密钥</p>
+<p>从 MongoDB 4.2 开始，用于内部成员身份验证的密钥文件使用 YAML 格式以允许在一个密钥文件中使用多个密钥。 YAML 格式接受以下内容：</p>
+<p>单个密钥字符串（与早期版本相同），</p>
+<p>多个键字符串（每个字符串必须用引号括起来），或关键字符串序列。</p>
+<p>YAML 格式与使用文本文件格式的现有单键密钥文件兼容</p>
+<h3 id=securityclusterauthmode>security.clusterAuthMode</h3>
+<p>用于集群认证的认证方式。如果您使用内部 x.509 身份验证，请在此处指定</p>
+<p>取值范围：<code>keyFile</code>，<code>sendKeyFile</code>，<code>sendX509</code>，<code>x509</code></p>
+<ul>
+<li>keyFile:使用密钥文件进行身份验证。只接受密钥文件</li>
+<li>sendKeyFile:用于滚动升级。发送用于身份验证的密钥文件，但可以接受密钥文件和 x.509 证书</li>
+<li>sendX509:用于滚动升级。发送 x.509 证书进行身份验证，但可以接受密钥文件和 x.509 证书</li>
+<li>x509:发送 x.509 证书进行身份验证并仅接受 x.509 证书</li>
+</ul>
+<h3 id=securityauthorization>security.authorization</h3>
+<p>启用或禁用基于角色的访问控制 (RBAC) 以管理每个用户对数据库资源和操作的访问</p>
+<p>取值范围：<code>enabled</code>，<code>disabled</code></p>
+<ul>
+<li>enabled:用户只能访问他们被授予权限的数据库资源和操作</li>
+<li>disabled:用户可以访问任何数据库并执行任何操作</li>
+</ul>
+<p><a href=https://docs.mongodb.com/manual/core/authorization/>更多RBAC配置信息</a></p>
+<h3 id=securitytransitiontoauth>security.transitionToAuth</h3>
+<h3 id=securityjavascriptenabled>security.javascriptEnabled</h3>
+<p>启用或禁用服务器端 JavaScript 执行,如果不使用这些操作，请禁用服务器端脚本。</p>
+<h3 id=securityredactclientlogdata>security.redactClientLogData</h3>
+<h3 id=securityclusteripsourceallowlist>security.clusterIpSourceAllowlist</h3>
+<p>mongod 验证来自副本集其他成员的身份验证请求的 IP 地址/CIDR（无类别域间路由）范围列表，以及 mongos 实例（如果是分片集群的一部分）。 mongod 验证原始 IP 是否明确在列表中或属于列表中的 CIDR 范围。如果 IP 地址不存在，则服务器不会对 mongod 或 mongos 进行身份验证</p>
+<p>example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>security</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>clusterIpSourceAllowlist</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span>- <span class=m>192.0.2.0</span><span class=l>/24</span><span class=w>
+</span><span class=w>    </span>- <span class=m>127.0.0.1</span><span class=w>
+</span><span class=w>    </span>- <span class=p>::</span><span class=m>1</span><span class=w>
+</span></code></pre></div><h3 id=securityclusteripsourcewhitelist>security.clusterIpSourceWhitelist</h3>
+<h3 id=securityenableencryption>security.enableEncryption</h3>
+<h3 id=securityencryptionciphermode>security.encryptionCipherMode</h3>
+<h3 id=securityencryptionkeyfile>security.encryptionKeyFile</h3>
+<p><a href=https://docs.mongodb.com/manual/reference/configuration-options/#security-options>更多security配置信息</a></p>
+<h2 id=setparameter>setParameter</h2>
+<p>设置 MongoDB 参数或 MongoDB 服务器参数中描述的参数</p>
+<p>example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>setParameter</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>&lt;parameter1&gt;</span><span class=p>:</span><span class=w> </span><span class=l>&lt;value1&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>&lt;parameter2&gt;</span><span class=p>:</span><span class=w> </span><span class=l>&lt;value2&gt;</span><span class=w>
+</span></code></pre></div><h3 id=setparameterldapusercacheinvalidationinterval>setParameter.ldapUserCacheInvalidationInterval</h3>
+<p>用于使用 LDAP 授权的 mongod 服务器</p>
+<p>mongod 在外部用户缓存刷新之间等待的时间间隔（以秒为单位）。 mongod 刷新外部用户缓存后，下次 LDAP 授权用户发出操作时，MongoDB 会重新从 LDAP 服务器获取授权数据。</p>
+<p>增加指定的值会增加 mongod 和 LDAP 服务器可能不同步的时间量，但会减少 LDAP 服务器上的负载。相反，减少指定的值会减少 mongod 的时间，并且 LDAP 服务器可能会不同步，同时会增加 LDAP 服务器的负载</p>
+<h2 id=storage>storage</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>storage</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>dbPath</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt; default:/data/db</span><span class=w>
+</span><span class=w>   </span><span class=nt>journal</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>commitIntervalMs</span><span class=p>:</span><span class=w> </span><span class=l>&lt;num&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>directoryPerDB</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span><span class=w>   </span><span class=nt>syncPeriodSecs</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt; default:60</span><span class=w>
+</span><span class=w>   </span><span class=nt>engine</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>wiredTiger</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>engineConfig</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>cacheSizeGB</span><span class=p>:</span><span class=w> </span><span class=l>&lt;number&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>journalCompressor</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>directoryForIndexes</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>maxCacheOverflowFileSizeGB</span><span class=p>:</span><span class=w> </span><span class=l>&lt;number&gt; // deprecated in MongoDB 4.4</span><span class=w>
+</span><span class=w>      </span><span class=nt>collectionConfig</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>blockCompressor</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>indexConfig</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>prefixCompression</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>inMemory</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>engineConfig</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>inMemorySizeGB</span><span class=p>:</span><span class=w> </span><span class=l>&lt;number&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>oplogMinRetentionHours</span><span class=p>:</span><span class=w> </span><span class=l>&lt;double&gt;</span><span class=w>
+</span></code></pre></div><h3 id=storagedbpath>storage.dbPath</h3>
+<p>mongod 实例存储其数据的目录</p>
+<h3 id=storagejournalenabled>storage.journal.enabled</h3>
+<p>启用或禁用持久性日志以确保数据文件保持有效和可恢复。此选项仅在您指定 storage.dbPath 设置时适用。 mongod 默认启用日记功能</p>
+<h3 id=storagejournalcommitintervalms>storage.journal.commitIntervalMs</h3>
+<p>mongod 进程允许在日志操作之间的最长时间（以毫秒为单位）。值的范围可以从 1 到 500 毫秒。较低的值会增加日志的持久性，但会降低磁盘性能</p>
+<h3 id=storagedirectoryperdb>storage.directoryPerDB</h3>
+<p>为 true 时，MongoDB 使用单独的目录来存储每个数据库的数据。目录在storage.dbPath目录下，每个子目录名对应数据库名</p>
+<p>从 MongoDB 5.0 开始，在启用 storage.directoryPerDB 时删除数据库中的最终集合（或删除数据库本身）会删除该数据库的新空子目录</p>
+<p><a href=https://docs.mongodb.com/manual/reference/configuration-options/#mongodb-setting-storage.directoryPerDB>详细信息</a></p>
+<h3 id=storagesyncperiodsecs>storage.syncPeriodSecs</h3>
+<p>在 MongoDB 通过 fsync 操作将数据刷新到数据文件之前可以经过的时间量</p>
+<p>不要在生产系统上设置此值。在几乎所有情况下，您都应该使用默认设置</p>
+<p>如果将 storage.syncPeriodSecs 设置为 0，MongoDB 将不会将内存映射文件同步到磁盘</p>
+<h3 id=storageengine>storage.engine</h3>
+<p>mongod 数据库的存储引擎</p>
+<p>取值范围：<code>wiredTiger</code>,<code>inMemory</code></p>
+<ul>
+<li><a href=https://docs.mongodb.com/manual/core/wiredtiger/>wiredTiger</a></li>
+<li><a href=https://docs.mongodb.com/manual/core/inmemory/>inMemory</a></li>
+</ul>
+<h3 id=storageoplogminretentionhours>storage.oplogMinRetentionHours</h3>
+<h3 id=storagewiredtiger>storage.wiredTiger</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>storage</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>wiredTiger</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>engineConfig</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>cacheSizeGB</span><span class=p>:</span><span class=w> </span><span class=l>&lt;number&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>journalCompressor</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>directoryForIndexes</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>         </span><span class=nt>maxCacheOverflowFileSizeGB</span><span class=p>:</span><span class=w> </span><span class=l>&lt;number&gt;   // Deprecated in MongoDB 4.4</span><span class=w>
+</span><span class=w>      </span><span class=nt>collectionConfig</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>blockCompressor</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>      </span><span class=nt>indexConfig</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>prefixCompression</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span></code></pre></div><h4 id=storagewiredtigerengineconfigcachesizegb>storage.wiredTiger.engineConfig.cacheSizeGB</h4>
+<p>定义 WiredTiger 将用于所有数据的内部缓存的最大大小</p>
+<h4 id=storagewiredtigerengineconfigjournalcompressor>storage.wiredTiger.engineConfig.journalCompressor</h4>
+<p>指定用于压缩 WiredTiger 日志数据的压缩类型</p>
+<p>取值范围：<code>none</code>，<code>snappy</code>，<code>zlib</code>，<code>zstd</code></p>
+<ul>
+<li><a href=https://docs.mongodb.com/manual/reference/glossary/#std-term-snappy>snappy</a></li>
+<li><a href=https://docs.mongodb.com/manual/reference/glossary/#std-term-zlib>zlib</a></li>
+<li><a href=https://docs.mongodb.com/manual/reference/glossary/#std-term-zstd>zstd</a></li>
+</ul>
+<h4 id=storagewiredtigerengineconfigdirectoryforindexes>storage.wiredTiger.engineConfig.directoryForIndexes</h4>
+<p>当 storage.wiredTiger.engineConfig.directoryForIndexes 为 true 时，mongod 将索引和集合存储在数据（即 storage.dbPath）目录下的单独子目录中。具体来说，mongod 将索引存储在名为 index 的子目录中，将集合数据存储在名为 collection 的子目录中。</p>
+<h4 id=storagewiredtigerengineconfigzstdcompressionlevel>storage.wiredTiger.engineConfig.zstdCompressionLevel</h4>
+<p>指定使用 zstd 压缩器时应用的压缩级别。</p>
+<p>值的范围可以从 1 到 22。</p>
+<p>zstdCompressionLevel 的指定值越高，应用的压缩就越高。</p>
+<p>仅在 blockCompressor 设置为 zstd 时适用。</p>
+<p>从 MongoDB 5.0 开始可用</p>
+<h4 id=storagewiredtigercollectionconfigblockcompressor>storage.wiredTiger.collectionConfig.blockCompressor</h4>
+<p>指定集合数据的默认压缩。创建集合时，您可以在每个集合的基础上覆盖它</p>
+<p>取值范围：<code>none</code>，<code>snappy</code>，<code>zlib</code>，<code>zstd</code></p>
+<ul>
+<li><a href=https://docs.mongodb.com/manual/reference/glossary/#std-term-snappy>snappy</a></li>
+<li><a href=https://docs.mongodb.com/manual/reference/glossary/#std-term-zlib>zlib</a></li>
+<li><a href=https://docs.mongodb.com/manual/reference/glossary/#std-term-zstd>zstd</a></li>
+</ul>
+<h4 id=storagewiredtigerindexconfigprefixcompression>storage.wiredTiger.indexConfig.prefixCompression</h4>
+<p>启用或禁用索引数据的前缀压缩。</p>
+<p>为 storage.wiredTiger.indexConfig.prefixCompression 指定 true 以启用索引数据的前缀压缩，或 false 以禁用索引数据的前缀压缩。</p>
+<p>storage.wiredTiger.indexConfig.prefixCompression 设置影响所有创建的索引。如果在现有 MongoDB 部署上更改 storage.wiredTiger.indexConfig.prefixCompression 的值，则所有新索引都将使用前缀压缩。现有索引不受影响。</p>
+<h3 id=storageinmemory>storage.inmemory</h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>storage</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>inMemory</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>engineConfig</span><span class=p>:</span><span class=w>
+</span><span class=w>         </span><span class=nt>inMemorySizeGB</span><span class=p>:</span><span class=w> </span><span class=l>&lt;number&gt;</span><span class=w>
+</span></code></pre></div><h4 id=storageinmemoryengineconfiginmemorysizegb>storage.inMemory.engineConfig.inMemorySizeGB</h4>
+<p>为 in-memory 存储引擎数据分配的最大内存量，包括索引、oplog（如果 mongod 是副本集、副本集或分片集群元数据的一部分）等。</p>
+<p>默认情况下，内存存储引擎使用 50% 的物理 RAM 减去 1 GB。</p>
+<h2 id=operationprofiling>operationProfiling</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>operationProfiling</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>mode</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt; default:off</span><span class=w>
+</span><span class=w>   </span><span class=nt>slowOpThresholdMs</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt; default:off</span><span class=w>
+</span><span class=w>   </span><span class=nt>slowOpSampleRate</span><span class=p>:</span><span class=w> </span><span class=l>&lt;double&gt; default:1.0</span><span class=w>
+</span><span class=w>   </span><span class=nt>filter</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span></code></pre></div><h3 id=operationprofilingmode>operationProfiling.mode</h3>
+<p>指定应分析哪些操作</p>
+<p>取值范围：<code>off</code>，<code>slowOp</code>，<code>all</code></p>
+<ul>
+<li>off:探查器已关闭且不收集任何数据。这是默认的分析器级别</li>
+<li>slowOp:探查器为耗时超过slowms 值的操作收集数据</li>
+<li>all:探查器收集所有操作的数据</li>
+</ul>
+<h3 id=operationprofilingslowopthresholdms>operationProfiling.slowOpThresholdMs</h3>
+<p>慢速操作时间阈值，以毫秒为单位。运行时间超过此阈值的操作被认为是缓慢的</p>
+<h3 id=operationprofilingslowopsamplerate>operationProfiling.slowOpSampleRate</h3>
+<p>应该分析或记录的慢速操作的比例</p>
+<h3 id=operationprofilingfilter>operationProfiling.filter</h3>
+<p>控制分析和记录哪些操作的过滤器表达式。</p>
+<p>设置过滤器后，slowOpThresholdMs 和 slowOpSampleRate 不用于分析和慢查询日志行。</p>
+<p>在配置文件中设置配置文件过滤器时，该过滤器适用于部署中的所有数据库。要为特定数据库设置配置文件过滤器，请使用 db.setProfilingLevel() 方法</p>
+<p><a href=https://docs.mongodb.com/manual/reference/configuration-options/#mongodb-setting-operationProfiling.filter>filter详细信息</a></p>
+<h2 id=replication>replication</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>replication</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>oplogSizeMB</span><span class=p>:</span><span class=w> </span><span class=l>&lt;int&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>replSetName</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>enableMajorityReadConcern</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:true</span><span class=w>
+</span></code></pre></div><h3 id=replicationoplogsizemb>replication.oplogSizeMB</h3>
+<p>复制操作日志的最大大小</p>
+<h3 id=replicationreplsetname>replication.replSetName</h3>
+<p>mongod 所属的副本集的名称。副本集中的所有主机必须具有相同的集名称。</p>
+<p>如果您的应用程序连接到多个副本集，则每个副本集必须具有不同的名称。某些驱动程序按副本集名称对副本集连接进行分组。</p>
+<p>从 MongoDB 4.0 开始：</p>
+<p>设置 replication.replSetName 不能与 storage.indexBuildRetry 一起使用。
+对于 WiredTiger 存储引擎，storage.journal.enabled: false 不能与 replication.replSetName 一起使用</p>
+<h3 id=replicationenablemajorityreadconcern>replication.enableMajorityReadConcern</h3>
+<h2 id=sharding>sharding</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>sharding</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>clusterRole</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>archiveMovedChunks</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt; default:false</span><span class=w>
+</span></code></pre></div><h3 id=shardingclusterrole>sharding.clusterRole</h3>
+<p>mongod 实例在分片集群中的角色</p>
+<p>取值范围：<code>configsvr</code>，<code>shardsvr</code></p>
+<ul>
+<li>configsvr:将此实例作为配置服务器启动。默认情况下，实例在端口 27019 上启动</li>
+<li>shardsvr:将此实例作为分片启动。默认情况下，实例在端口 27018 上启动。</li>
+</ul>
+<h3 id=shardingarchivemovedchunks>sharding.archiveMovedChunks</h3>
+<p>在块迁移期间，分片不保存从分片迁移的文档。</p>
+<h2 id=auditlog>auditLog</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>auditLog</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>destination</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>format</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>filter</span><span class=p>:</span><span class=w> </span><span class=l>&lt;string&gt;</span><span class=w>
+</span></code></pre></div><h3 id=auditlogdestination>auditLog.destination</h3>
+<p>设置后，auditLog.destination 启用审计并指定 mongos 或 mongod 将所有审计事件发送到何处</p>
+<p>取值范围：<code>syslog</code>,<code>console</code>,<code>file</code></p>
+<ul>
+<li>syslog:将审计事件以 JSON 格式输出到 syslog</li>
+<li>console:将审计事件以 JSON 格式输出到标准输出</li>
+<li>file:将审计事件以auditLog.format 中指定的格式输出到auditLog.path 中指定的文件中</li>
+</ul>
+<h3 id=auditlogfilter>auditLog.filter</h3>
+<p>用于限制审计系统记录的操作类型的过滤器</p>
+<h3 id=auditlogformat>auditLog.format</h3>
+<p>如果目标是文件，则用于审计的输出文件的格式</p>
+<p>取值范围：<code>json</code>，<code>bson</code></p>
+<h3 id=auditlogpath>auditLog.path</h3>
+<p>如果目标具有文件值，则用于审计的输出文件。 auditLog.path 选项可以采用完整路径名或相对路径名</p>
+<h3 id=auditlogruntimeconfiguration>auditLog.runtimeConfiguration</h3>
+<p>指定节点是否允许审计过滤器和 auditAuthorizationSuccess 变量的运行时配置。如果为 true，则该节点可以参与在线审核过滤器管理</p>
+<h2 id=snmp>snmp</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>snmp</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>disabled</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>subagent</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>master</span><span class=p>:</span><span class=w> </span><span class=l>&lt;boolean&gt;</span><span class=w>
+</span></code></pre></div><h3 id=snmpdisabled>snmp.disabled</h3>
+<h3 id=snmpsubagent>snmp.subagent</h3>
+<h3 id=snmpmaster>snmp.master</h3>
+</div>
+</article>
+<hr>
+<div class=post-info>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg>
+<span class=tag><a href=https://reggieteng.github.io/tags/mongodb/>mongodb</a></span>
+<span class=tag><a href=https://reggieteng.github.io/tags/mongo/>mongo</a></span>
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+<span class=tag><a href=https://reggieteng.github.io/categories/mongodb/>mongodb</a></span>
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+678 Words
+</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+2021-11-11
+</p>
+</div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h></span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<span class="button next">
+<a href=https://reggieteng.github.io/posts/2021/10/etcd%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>
+<span class=button__text>etcd的配置文件</span>
+<span class=button__icon>→</span>
+</a>
+</span>
+</div>
+</div>
+</main>
+</div>
+<footer class=footer>
+</footer>
+</div>
+<script type=text/javascript src=https://reggieteng.github.io/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
+</body>
+</html>
