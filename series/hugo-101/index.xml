@@ -29,10 +29,9 @@ type ClientConfig struct { // Config contains configuration that is shared betwe
 package main import ( &amp;#34;net/http&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) func helloHandler(c *gin.Context) { c.JSON(http.StatusOK, gin.JSON{ &amp;#34;message&amp;#34;: &amp;#34;Hello world!&amp;#34;, }) } func main() { r := gin.Default() r.GET(&amp;#34;/hello&amp;#34;, helloHandler) if err := r.Run(); err != nil { fmt.Println(&amp;#34;launch service failed, err:%v\n&amp;#34;, err) } } router注册拆出
 当项目的规模逐渐变大时,在main,go中定义router非常不合适.此时就可以考虑将router部分代码单独写出。此时文件结构为
 . ├── ... --- 其他文件 ├── main.go --- 项目入口 └── router.go --- router文件 其中router.go代码如下
-package main import ( &amp;#34;net/http&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) func helloHandler(c *gin.</description></item><item><title>Debian添加work用户</title><link>https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/</link><pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate><guid>https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/</guid><description>一般在开发中很少使用root用户，可以创建work用户进行软件安装等操作。
+package main import ( &amp;#34;net/http&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) func helloHandler(c *gin.</description></item><item><title>Debian添加work用户</title><link>https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/</link><pubDate>Thu, 11 Mar 2021 00:00:00 +0000</pubDate><guid>https://reggieteng.github.io/posts/2021/03/debian%E6%B7%BB%E5%8A%A0work%E7%94%A8%E6%88%B7/</guid><description>一般在开发中很少使用root用户，可以创建work用户进行操作。
 以root用户登陆服务器后，添加work用户 useradd -d /home/work -s /bin/bash -m work
 设置work用户的密码 passwd work
-将work用户添加至sudo组中 adduser work sudo
 注意:以上操作均在root用户下操作，若非root用户，则需要加sudo
 关于useradd命令的参数意义如下，供参考：
 -c&amp;lt;备注&amp;gt;：加上备注文字。备注文字会保存在passwd的备注栏位中；
