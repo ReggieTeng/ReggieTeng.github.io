@@ -12,9 +12,9 @@ systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mong
 <meta name=keywords content=",mongodb,mongo">
 <meta name=robots content="noodp">
 <meta name=theme-color content>
-<link rel=canonical href=https://reggieteng.github.io/posts/2021/11/mongndb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>
+<link rel=canonical href=https://reggieteng.github.io/posts/2021/11/mongodb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>
 <title>
-mongndb配置文件 :: Hello — Hello Friends
+mongodb配置文件 :: Hello — Hello Friends
 </title>
 <link href=https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css rel=stylesheet type=text/css>
 <link rel=stylesheet href=https://reggieteng.github.io/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css>
@@ -26,7 +26,7 @@ mongndb配置文件 :: Hello — Hello Friends
 <link rel="shortcut icon" href=https://reggieteng.github.io/favicon.ico>
 <meta name=msapplication-TileColor content="#1b1c1d">
 <meta name=theme-color content="#1b1c1d">
-<meta itemprop=name content="mongndb配置文件">
+<meta itemprop=name content="mongodb配置文件">
 <meta itemprop=description content="mongodb的配置文件是mongod.conf，文件路径一般为/etc/mongod.conf下面就是一个配置文件的例子
 # mongod.conf# file path:/etc/mongod.conf# for documentation of all options, see:# http://docs.mongodb.org/manual/reference/configuration-options/# Where and how to store data.storage:dbPath:/var/lib/mongodbjournal:enabled:true# engine:# wiredTiger:# where to write logging data.systemLog:destination:filelogAppend:truepath:/var/log/mongodb/mongod.log# network interfacesnet:port:27017bindIp:127.0.0.1# how the process runsprocessManagement:timeZoneInfo:/usr/share/zoneinfo#security:#operationProfiling:#replication:#sharding:## Enterprise-Only Options:#auditLog:#snmp:配置文件由以下几部分组成
  systemLog processManagement cloud net security setParameter storage operationProfiling replication sharding auditLog snmp  systemLog systemLog:verbosity:<int> default:0quiet:<boolean> default:falsetraceAllExceptions:<boolean> default:falsesyslogFacility:<string>path:<string>logAppend:<boolean> default:falselogRotate:<string> default:renamedestination:<string>timeStampFormat:<string>component:accessControl:verbosity:<int>command:verbosity:<int># COMMENT additional component verbosity settings omitted for brevitysystemLog.verbosity 组件的默认日志消息详细级别。详细级别决定了 MongoDB 输出的信息和调试消息的数量
@@ -37,20 +37,20 @@ systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mong
 <meta itemprop=keywords content="mongodb,mongo,">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://reggieteng.github.io">
-<meta name=twitter:title content="mongndb配置文件">
+<meta name=twitter:title content="mongodb配置文件">
 <meta name=twitter:description content="mongodb的配置文件是mongod.conf，文件路径一般为/etc/mongod.conf下面就是一个配置文件的例子
 # mongod.conf# file path:/etc/mongod.conf# for documentation of all options, see:# http://docs.mongodb.org/manual/reference/configuration-options/# Where and how to store data.storage:dbPath:/var/lib/mongodbjournal:enabled:true# engine:# wiredTiger:# where to write logging data.systemLog:destination:filelogAppend:truepath:/var/log/mongodb/mongod.log# network interfacesnet:port:27017bindIp:127.0.0.1# how the process runsprocessManagement:timeZoneInfo:/usr/share/zoneinfo#security:#operationProfiling:#replication:#sharding:## Enterprise-Only Options:#auditLog:#snmp:配置文件由以下几部分组成
  systemLog processManagement cloud net security setParameter storage operationProfiling replication sharding auditLog snmp  systemLog systemLog:verbosity:<int> default:0quiet:<boolean> default:falsetraceAllExceptions:<boolean> default:falsesyslogFacility:<string>path:<string>logAppend:<boolean> default:falselogRotate:<string> default:renamedestination:<string>timeStampFormat:<string>component:accessControl:verbosity:<int>command:verbosity:<int># COMMENT additional component verbosity settings omitted for brevitysystemLog.verbosity 组件的默认日志消息详细级别。详细级别决定了 MongoDB 输出的信息和调试消息的数量
 取值范围：0-5
 systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mongod">
-<meta property="og:title" content="mongndb配置文件">
+<meta property="og:title" content="mongodb配置文件">
 <meta property="og:description" content="mongodb的配置文件是mongod.conf，文件路径一般为/etc/mongod.conf下面就是一个配置文件的例子
 # mongod.conf# file path:/etc/mongod.conf# for documentation of all options, see:# http://docs.mongodb.org/manual/reference/configuration-options/# Where and how to store data.storage:dbPath:/var/lib/mongodbjournal:enabled:true# engine:# wiredTiger:# where to write logging data.systemLog:destination:filelogAppend:truepath:/var/log/mongodb/mongod.log# network interfacesnet:port:27017bindIp:127.0.0.1# how the process runsprocessManagement:timeZoneInfo:/usr/share/zoneinfo#security:#operationProfiling:#replication:#sharding:## Enterprise-Only Options:#auditLog:#snmp:配置文件由以下几部分组成
  systemLog processManagement cloud net security setParameter storage operationProfiling replication sharding auditLog snmp  systemLog systemLog:verbosity:<int> default:0quiet:<boolean> default:falsetraceAllExceptions:<boolean> default:falsesyslogFacility:<string>path:<string>logAppend:<boolean> default:falselogRotate:<string> default:renamedestination:<string>timeStampFormat:<string>component:accessControl:verbosity:<int>command:verbosity:<int># COMMENT additional component verbosity settings omitted for brevitysystemLog.verbosity 组件的默认日志消息详细级别。详细级别决定了 MongoDB 输出的信息和调试消息的数量
 取值范围：0-5
 systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mongod">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://reggieteng.github.io/posts/2021/11/mongndb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:image" content="https://reggieteng.github.io"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://reggieteng.github.io/posts/2021/11/mongodb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:image" content="https://reggieteng.github.io"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-11-11T00:00:00+00:00">
 <meta property="article:modified_time" content="2021-11-11T00:00:00+00:00">
 <meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/10/etcd%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/drone%E7%9A%84yml%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/08/nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/05/sqlx-golang%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/"><meta property="og:see_also" content="https://reggieteng.github.io/posts/2021/04/golang-strconv/">
@@ -88,7 +88,7 @@ systemLog.quiet 在尝试限制输出量的安静模式下运行 mongos 或 mong
 </div>
 <article>
 <h1 class=post-title>
-<a href=https://reggieteng.github.io/posts/2021/11/mongndb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>mongndb配置文件</a>
+<a href=https://reggieteng.github.io/posts/2021/11/mongodb%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/>mongodb配置文件</a>
 </h1>
 <div class=post-content>
 <p>mongodb的配置文件是mongod.conf，文件路径一般为<code>/etc/mongod.conf</code>下面就是一个配置文件的例子</p>
